@@ -16,11 +16,8 @@
       <%= f.label :password_confirmation, "Confirmation" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
 
-      <% if logged_in? %>
-      <%= f.submit "Save changes", class: "btn btn-primary" %>
-      <%else%>
-         <%= f.submit "Create my account", class: "btn btn-primary" %>
-    <% end %>
+      
+         <%= f.submit btn, class: "btn btn-primary" %>
     <% end %>
     
   </div>
