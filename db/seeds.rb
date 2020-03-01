@@ -5,3 +5,12 @@ User.create!(name:  "mod Hanh",
              admin:     true,
              activated: true,
              activated_at: Time.zone.now)
+
+users = User.order(:created_at).take(6)
+  5.times do
+    users.each { |user| user.homes.create!(name: "Nha a",
+                                          status: "con moi",
+                                          number_floors: 3,
+                                          price: 60000000
+                                           ) }
+end

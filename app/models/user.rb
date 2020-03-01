@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :homes, dependent: :destroy
   attr_accessor :remember_token, :activation_token
   before_save :downcase_email
   before_create :create_activation_digest
@@ -55,6 +56,10 @@ class User < ApplicationRecord
   # Sends activation email.
   def send_activation_email
     UserMailer.account_activation(self).deliver_now
+  end
+
+  def feed
+    Home.where("user_id = ?", id)
   end
 
   private

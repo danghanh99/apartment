@@ -7,4 +7,14 @@
       </h1>
     </section>
   </aside>
+  <div class="col-md-8">
+    <% if @user.homes.any? %>
+      <h3>Homes (<%= @user.homes.count %>)</h3>
+      <ol class="homes">
+        <%= render @homes %>
+      </ol>
+     
+    <% end %>
+  </div>
+
 </div>
