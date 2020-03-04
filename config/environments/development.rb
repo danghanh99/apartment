@@ -32,9 +32,9 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587,
-    domain:  'apartment.com',
+    domain:  'apartment.com', 
     user_name: ENV['Hanhemail'],
-    password:  ENV['Hanhpass'],
+    password: ENV['Hanhpass'],
     authentication: 'plain',
     enable_starttls_auto: true  
   }
