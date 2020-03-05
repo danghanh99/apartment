@@ -16,9 +16,6 @@ Rails.application.routes.draw do
 
   resources :users
   resources :account_activations
-<<<<<<< HEAD
   resources :homes
-=======
   resources :password_resets
->>>>>>> develop
 end

@@ -54,12 +54,10 @@ class User < ApplicationRecord
     UserMailer.account_activation(self).deliver_now
   end
 
-<<<<<<< HEAD
   def feed
     Home.where("user_id = ?", id)
   end
 
-=======
   # Sets the password reset attributes.
   def create_reset_digest
     self.reset_token = User.new_token
@@ -77,7 +75,6 @@ class User < ApplicationRecord
     reset_sent_at < 2.hours.ago
   end
   
->>>>>>> develop
   private
 
   # Converts email to all lower-case.
