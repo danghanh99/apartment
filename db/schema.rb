@@ -10,6 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20200301140555) do
 
   create_table "homes", force: :cascade do |t|
@@ -24,6 +25,9 @@ ActiveRecord::Schema.define(version: 20200301140555) do
     t.index ["user_id", "created_at"], name: "index_homes_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_homes_on_user_id"
   end
+=======
+ActiveRecord::Schema.define(version: 20200301020915) do
+>>>>>>> develop
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -36,6 +40,8 @@ ActiveRecord::Schema.define(version: 20200301140555) do
     t.boolean "activated", default: false
     t.datetime "activated_at"
     t.boolean "admin", default: false
+    t.string "reset_digest"
+    t.datetime "reset_sent_at"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
