@@ -34,6 +34,10 @@ module SessionsHelper
     def admin?
       return true if current_user.present? && current_user.admin == true
     end
+
+    def get_admin
+      User.find_by(admin: true)
+    end
     # Forgets a persistent session.
   def forget(user)
     user.forget
