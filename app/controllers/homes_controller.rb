@@ -16,8 +16,7 @@ class HomesController < ApplicationController
   def destroy
     @home.destroy
     flash[:success] = "Home deleted"
-  #  redirect_to request.referrer || root_url 
-  redirect_to  root_url 
+    redirect_to  root_url 
   end
 
   def edit
