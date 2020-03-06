@@ -9,7 +9,7 @@ end
 gem 'rails',        '5.1.6'
 gem 'dotenv-rails'
 gem 'bcrypt',         '3.1.12'
-gem 'bootstrap-sass', '3.3.7'
+gem 'bootstrap-sass', '3.4.1'
 gem 'puma',         '3.12.4'
 gem 'sass-rails',   '5.0.6'
 gem 'uglifier',     '3.2.0'
