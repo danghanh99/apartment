@@ -20,6 +20,7 @@ gem 'jquery-rails', '4.3.1'
 gem 'turbolinks',   '5.0.1'
 gem 'jbuilder',     '2.7.0'
 gem 'pg', '0.20.0'
+gem 'simplecov'
 group :development, :test do
   gem 'pg', '0.20.0'
   gem 'byebug',  '9.0.6', platform: :mri
