@@ -26,9 +26,10 @@ jobs:
       uses: actions/setup-ruby@v1
       with:
         ruby-version: 2.6.5
-    - name: Install required apt packages
+    - name: Install required apt packages and bundler
       run: |
         sudo apt-get -y install libpq-dev
+        gem install bundler
     - name: Cache gems
       uses: actions/cache@v1
       env:
