@@ -59,6 +59,7 @@ jobs:
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_USERNAME: Slack Success Notification
+        SLACK_ICON: https://cdn.iconscout.com/icon/premium/png-48-thumb/bot-141-570548.png
     - name: Slack Failure Notification
       uses: rtCamp/action-slack-notify@v2.0.0
       if: failure()
@@ -66,3 +67,4 @@ jobs:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_USERNAME: Slack Failure Notification
         SLACK_COLOR: FF0000
+        SLACK_ICON: https://cdn.iconscout.com/icon/premium/png-48-thumb/bot-141-570548.png
