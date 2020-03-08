@@ -2,7 +2,7 @@
   <div class="container">
     <%= link_to "Apartment", root_path, id: "logo" %>
     <%= form_tag(search_page_path, :method => "get",   
-    class: 'navbar-form navbar-left') do %>  
+    class: 'navbar-form navbar-right') do %>  
   <div class="input-group">  
     <%= search_field_tag :search, params[:search], placeholder: "Search", class: "form-control" %>  
     <div class="input-group-btn">  
@@ -10,6 +10,13 @@
     </div>  
   </div>  
 <% end %>
+
+<%= form_tag(search_price_path, :method => "get", class: 'navbar-form navbar-left') do %>  
+  <%= search_field_tag :begin, params[:begin], placeholder: "from_price", class: "form-control" %>
+  <%= search_field_tag :end, params[:end], placeholder: "to_price", class: "form-control" %> 
+  <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
+<% end %>
+ 
     <nav>
       <ul class="nav navbar-nav navbar-right">
         <li><%= link_to "Home", root_path %></li>

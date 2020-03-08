@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   post'/login',   to: 'sessions#create'
   delete '/logout',  to: 'sessions#destroy'
   get '/search' => 'static_pages#index', :as => 'search_page'
+  get '/search-price' => 'static_pages#index_price', :as => 'search_price'
 
 
   resources :users
