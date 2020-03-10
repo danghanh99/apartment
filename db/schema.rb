@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20200301140555) do
   enable_extension "plpgsql"
 
   create_table "homes", force: :cascade do |t|
-    t.integer "user_id"
+    t.bigint "user_id"
     t.text "name"
     t.text "status"
     t.integer "number_floors"

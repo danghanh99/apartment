@@ -3,7 +3,7 @@ require 'test_helper'
 class HomeTest < ActiveSupport::TestCase
   def setup
     @user = users(:michael)
-    @home = @user.homes.build(name: "nha a", status: "con moi",
+    @home = @user.homes.build(name: "nha a", status: 2,
                       number_floors: 1, price: 800000, user_id: @user.id)
   end
 

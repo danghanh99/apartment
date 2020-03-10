@@ -3,6 +3,7 @@ class Home < ApplicationRecord
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader
   validates :user_id,       presence: true
+  enum status: { order: 0, using: 1, empty: 2 }, _prefix: :type
   validates :status,        presence: true, length: { maximum: 250 }
   validates :name,          presence: true, length: { maximum: 100 }
   validates :price,         presence: true, 
