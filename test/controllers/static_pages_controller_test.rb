@@ -9,10 +9,6 @@ class StaticPagesControllerTest < ActionDispatch::IntegrationTest
     assert_select "title", "Apartment"
   end
 
-  test "should get help" do
-    get help_path
-    assert_response :success
-    assert_select "title", "Apartment"
-  end
+ 
 
 end

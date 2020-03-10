@@ -2,6 +2,16 @@ class HomesController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy]
   before_action :correct_user,   only: :destroy
 
+  def index
+    if params[:begin].blank?||params[:end].blank?
+      redirect_to(root_path, alert: "Empty field!") and return  
+    else  
+      @begin = params[:begin]  
+      @end   = params[:end]
+      @results = Home.all.where('price > ? and price < ?', @begin, @end) if (@begin && @end) 
+    end  
+  end
+
   def create
     @home = current_user.homes.build(home_params)
     if @home.save
