@@ -2,14 +2,15 @@
     <%= render 'shared/error_messages', object: f.object %>
     <div class="field">
       name: <%= f.text_area :name, placeholder: "name home..." %>
-      <%= f.select :status, [ 'available', 'ordered', 'rented' ], :prompt => 'status' %>
+      status:<%= f.select :status, [ 'available', 'ordered', 'rented' ], :prompt => 'status' %>
       number_floors: <%= f.text_area :number_floors, placeholder: "number_floors..." %>
       price: <%= f.text_area :price, placeholder: "price..." %>
     </div>
-    <%= f.submit "Post", class: "btn btn-primary" %>
     <span class="picture">
     <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
   </span>
+  <%= f.submit btn, class: "btn btn-primary" %>
+
   <% end %>
 
 

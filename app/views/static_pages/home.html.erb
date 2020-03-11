@@ -5,7 +5,7 @@
         <%= render 'shared/user_info' %>
       </section>
       <section class="home_form">
-        <%= render 'shared/home_form' %>
+        <%= render partial: 'shared/home_form', locals: {btn: "Post"} %>
       </section>
     </aside>
     <div class="col-md-8">
