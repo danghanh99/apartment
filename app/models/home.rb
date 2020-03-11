@@ -4,7 +4,7 @@ class Home < ApplicationRecord
   mount_uploader :picture, PictureUploader
   validates :user_id,       presence: true
   enum status: { available: 'available', ordered: 'ordered', rented: 'rented' }
-  validates :status,        presence: true, length: { maximum: 250 }
+  validates :status,        presence: true, inclusion: {in: %w(available ordered rented)}
   validates :name,          presence: true, length: { maximum: 100 }
   validates :price,         presence: true, 
                             numericality: { only_integer: true }
