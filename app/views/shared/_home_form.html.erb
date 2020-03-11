@@ -2,7 +2,7 @@
     <%= render 'shared/error_messages', object: f.object %>
     <div class="field">
       name: <%= f.text_area :name, placeholder: "name home..." %>
-      status:<%= f.text_area :status, placeholder: "status home..." %>
+      <%= f.select :status, [ 'available', 'ordered', 'rented' ], :prompt => 'status' %>
       number_floors: <%= f.text_area :number_floors, placeholder: "number_floors..." %>
       price: <%= f.text_area :price, placeholder: "price..." %>
     </div>
