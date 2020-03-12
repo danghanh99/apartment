@@ -6,6 +6,11 @@
         <%= @user.name %>
       </h1>
     </section>
+    <% if logged_in? && admin? %>
+  <section class="home_form">
+    <%= render partial: "shared/home_form", locals: { btn: "Post" } %>
+  </section>
+<% end %>
   </aside>
   <div class="col-md-8">
     <% if @user.homes.any? %>
@@ -13,8 +18,6 @@
       <ol class="homes">
         <%= render @homes %>
       </ol>
-     
     <% end %>
   </div>
-
 </div>

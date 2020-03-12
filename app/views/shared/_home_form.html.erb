@@ -1,13 +1,13 @@
 <%= form_for(@home) do |f| %>
-    <%= render 'shared/error_messages', object: f.object %>
+    <%= render "shared/error_messages", object: f.object %>
     <div class="field">
-      name: <%= f.text_area :name, placeholder: "name home..." %>
-      status:<%= f.select :status, [ 'available', 'ordered', 'rented' ], :prompt => 'status' %>
-      number_floors: <%= f.text_area :number_floors, placeholder: "number_floors..." %>
-      price: <%= f.text_area :price, placeholder: "price..." %>
+      <label>name:</label> <%= f.text_field :name, placeholder: "name home..." %>
+      <label>status:</label><%= f.select :status, Home.statuses.to_a, :prompt => "status" %>
+      <label>number_floors:</label> <%= f.text_field :number_floors, placeholder: "number_floors..." %>
+      <label>price:</label> <%= f.text_field :price, placeholder: "price..." %>
     </div>
     <span class="picture">
-    <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+    <%= f.file_field :picture, accept: "image/jpeg,image/gif,image/png" %>
   </span>
   <%= f.submit btn, class: "btn btn-primary" %>
 
