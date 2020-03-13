@@ -9,25 +9,29 @@ class HomesController < ApplicationController
       redirect_to user_path(current_user)
     else
       @feed_items = []
-      render "static_pages/home"
+      @user = current_user
+      @homes = Home.all
+      render "users/show"
     end
   end
 
   def destroy
     @home.destroy
     flash[:success] = "Home deleted"
-    redirect_to root_url
+    redirect_to current_user
   end
 
   def edit
     @home = Home.find(params[:id])
-    render "edit"
   end
 
   def update
     @home = Home.find(params[:id])
     if @home.update_attributes(home_params)
+      flash[:success] = "Home updated"
       redirect_to user_path(current_user)
+    else
+      render "edit"
     end
   end
 

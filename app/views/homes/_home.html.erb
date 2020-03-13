@@ -7,9 +7,11 @@
   
   <span class="timestamp">
     <label>Posted</label> <%= time_ago_in_words(home.created_at) %> ago.
-    <span class="edit"><%= link_to "edit", edit_home_url(home.id) %>
-      <%= link_to "delete", home, method: :delete,
-                                  data: { confirm: "You sure?" } %>
+    <% if logged_in? && admin? %>
+      <span class="edit"><%= link_to "edit", edit_home_url(home.id) %>
+        <%= link_to "delete", home, method: :delete,
+                                    data: { confirm: "You sure?" } %>
+      </span>
+    <% end %>
   </span>
-  
 </li>
