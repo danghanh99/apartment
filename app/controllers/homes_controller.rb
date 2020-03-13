@@ -8,7 +8,6 @@ class HomesController < ApplicationController
       flash[:success] = "Home created!"
       redirect_to user_path(current_user)
     else
-      @feed_items = []
       @user = current_user
       @homes = Home.all
       render "users/show"
