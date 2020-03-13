@@ -12,6 +12,6 @@ users = User.order(:created_at).take(6)
     user.homes.create!(name: "Nha a",
                        status: "available",
                        number_floors: 3,
-                       price: 60000000)
+                       full_price: 60000000)
   }
 end

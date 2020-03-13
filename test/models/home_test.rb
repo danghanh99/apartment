@@ -1,16 +1,16 @@
-require 'test_helper'
+require "test_helper"
 
 class HomeTest < ActiveSupport::TestCase
   def setup
     @user = users(:michael)
-    @home = @user.homes.build(name: "nha a", status: 'available',
-                      number_floors: 1, price: 800000, user_id: @user.id)
+    @home = @user.homes.build(name: "nha a", status: "available",
+                              number_floors: 1, full_price: 800000, user_id: @user.id)
   end
 
   test "should be valid" do
     assert @home.valid?
   end
- 
+
   test "user id should be present" do
     @home.user_id = nil
     assert_not @home.valid?
@@ -36,14 +36,13 @@ class HomeTest < ActiveSupport::TestCase
     assert_not @home.valid?
   end
 
-  test "price should be present" do
-    @home.price = "     "
+  test "full_price should be present" do
+    @home.full_price = "     "
     assert_not @home.valid?
   end
 
-  test "price not have text" do
-    @home.price = "a"
+  test "full_price not have text" do
+    @home.full_price = "a"
     assert_not @home.valid?
   end
-
 end

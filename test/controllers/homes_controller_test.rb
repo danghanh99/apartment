@@ -35,7 +35,7 @@ class HomesControllerTest < ActionDispatch::IntegrationTest
       post homes_path, params: { home: { name: "home test",
                                         status: "available",
                                         number_floors: 2,
-                                        price: 5000000 } }
+                                        full_price: 5000000 } }
     end
   end
 
@@ -45,7 +45,7 @@ class HomesControllerTest < ActionDispatch::IntegrationTest
       post homes_path, params: { home: { name: "",
                                         status: "available",
                                         number_floors: 2,
-                                        price: 5000000 } }
+                                        full_price: 5000000 } }
     end
     assert_template "users/show"
   end
@@ -71,7 +71,7 @@ class HomesControllerTest < ActionDispatch::IntegrationTest
       patch home_path, params: { home: { name: "home test",
                                         status: "available",
                                         number_floors: 2,
-                                        price: 5000000 } }
+                                        full_price: 5000000 } }
     end
     assert_redirected_to @user
     assert_not flash.empty?
@@ -84,7 +84,7 @@ class HomesControllerTest < ActionDispatch::IntegrationTest
       patch home_path, params: { home: { name: "",
                                         status: "available",
                                         number_floors: 2,
-                                        price: 5000000 } }
+                                        full_price: 5000000 } }
     end
     assert_template "edit"
   end

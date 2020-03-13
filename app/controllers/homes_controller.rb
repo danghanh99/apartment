@@ -37,7 +37,7 @@ class HomesController < ApplicationController
   private
 
   def home_params
-    params.require(:home).permit(:name, :status, :number_floors, :price, :picture)
+    params.require(:home).permit(:name, :status, :number_floors, :full_price, :picture)
   end
 
   def correct_user

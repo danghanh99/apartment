@@ -6,8 +6,8 @@ class Home < ApplicationRecord
   enum status: { available: "available", ordered: "ordered", rented: "rented" }
   validates :status, presence: true, inclusion: { in: %w(available ordered rented) }
   validates :name, presence: true, length: { minimum: 3, maximum: 100 }
-  validates :price, presence: true,
-                    numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :full_price, presence: true,
+                         numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :number_floors, presence: true,
                             numericality: { only_integer: true, greater_than: 0 }
   validate :picture_size

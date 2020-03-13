@@ -5,11 +5,11 @@ one:
   name: MyText
   status: MyText
   number_floors: 1
-  price: 1
+  full_price: 1
 
 two:
   user: two
   name: MyText
   status: MyText
   number_floors: 1
-  price: 1
+  full_price: 1
