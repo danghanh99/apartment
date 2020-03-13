@@ -7,7 +7,7 @@ class Home < ApplicationRecord
   validates :status, presence: true, inclusion: { in: %w(available ordered rented) }
   validates :name, presence: true, length: { maximum: 100 }
   validates :price, presence: true,
-                    numericality: { only_integer: true, greater_than: 0 }
+                    numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :number_floors, presence: true,
                             numericality: { only_integer: true, greater_than: 0 }
   validate :picture_size

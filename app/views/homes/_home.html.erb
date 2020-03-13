@@ -1,8 +1,8 @@
 <li id="home-<%= home.id %>">
-  <span class="name"><label>name:</label> <%= home.name %></span></br>
-  <span class="status"><label>status:</label> <%= home.status %></span></br>
-  <span class="number_floors"><label>number_floors:</label> <%= home.number_floors %></span></br>
-  <span class="price"><label>price:</label> <%= home.price %></span></br>
+  <span class="name"><label>Name:</label> <%= home.name %></span></br>
+  <span class="status"><label>Status:</label> <%= home.status %></span></br>
+  <span class="number_floors"><label>Number Floors:</label> <%= home.number_floors %></span></br>
+  <span class="price"><label>Price:</label> <%= home.price %></span></br>
   <%= image_tag home.picture.url if home.picture? %>
   
   <span class="timestamp">
