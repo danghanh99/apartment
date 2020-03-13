@@ -11,6 +11,11 @@ class HomeTest < ActiveSupport::TestCase
     assert @home.valid?
   end
 
+  test "price_unit should be present" do
+    @home.price_unit = "     "
+    assert_not @home.valid?
+  end
+
   test "user id should be present" do
     @home.user_id = nil
     assert_not @home.valid?

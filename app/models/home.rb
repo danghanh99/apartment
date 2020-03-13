@@ -11,6 +11,8 @@ class Home < ApplicationRecord
   validates :number_floors, presence: true,
                             numericality: { only_integer: true, greater_than: 0 }
   validate :picture_size
+  enum price_unit: { VND: "VND", USD: "USD" }
+  validates :price_unit, presence: true, inclusion: { in: %w(VND USD) }
 
   private
 
