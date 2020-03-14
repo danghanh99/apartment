@@ -1,0 +1,21 @@
+<li id="home-<%= home.id %>">
+  <span class="name"><label>Name:</label> <%= home.name %></span></br>
+  <span class="status"><label>Status:</label> <%= home.status %></span></br>
+  <span class="number_floors"><label>Number Floors:</label> <%= home.number_floors %></span></br>
+  <% if home.price_unit == "VND" %>
+    <span class="full_price"><label>Full Price:</label> <%= home.full_price %> VND</span></br>
+  <% else %>
+    <span class="full_price"><label>Full Price:</label> $<%= home.full_price %></span></br>
+  <% end %>
+  <%= image_tag home.picture.url if home.picture? %>
+  
+  <span class="timestamp">
+    <label>Posted</label> <%= time_ago_in_words(home.created_at) %> ago.
+    <% if logged_in? && admin? %>
+      <span class="edit"><%= link_to "edit", edit_home_url(home.id) %>
+        <%= link_to "delete", home, method: :delete,
+                                    data: { confirm: "You sure?" } %>
+      </span>
+    <% end %>
+  </span>
+</li>
