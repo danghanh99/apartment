@@ -63,10 +63,7 @@ GEM
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.6)
     crass (1.0.6)
-<<<<<<< HEAD
-=======
     docile (1.3.2)
->>>>>>> develop
     dotenv (2.7.5)
     dotenv-rails (2.7.5)
       dotenv (= 2.7.5)
