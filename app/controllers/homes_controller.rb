@@ -3,13 +3,15 @@ class HomesController < ApplicationController
   before_action :correct_user, only: :destroy
 
   def index
-    if params[:begin].blank?||params[:end].blank?
-      redirect_to(root_path, alert: "Empty field!") and return  
-    else  
       @begin = params[:begin]  
       @end   = params[:end]
-      @results = Home.all.where('price > ? and price < ?', @begin, @end) if (@begin && @end) 
-    end  
+      @search = params[:search]
+      @number_floors = params[:number_floors]
+      @results = Home.all
+      @results = Home.where("lower(name) LIKE :search OR lower(status) LIKE :search", search: "%#{@search}%")
+      @results = Home.where('number_floors < ?', @number_floors) if @number_floors!=""
+      @results = Home.where('full_price > ?', @begin) if @begin!="" 
+      @results = Home.where('full_price < ?', @end) if @end!=""
   end
 
   def create
