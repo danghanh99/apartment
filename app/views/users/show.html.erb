@@ -6,7 +6,7 @@
         <%= @user.name %>
       </h1>
     </section>
-  <% if logged_in? && admin? %>
+  <% if admin? %>
     <section class="home_form">
       <%= render partial: "shared/home_form", locals: { btn: "Post" } %>
     </section>
