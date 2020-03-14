@@ -1,6 +1,6 @@
 class HomesController < ApplicationController
-  before_action :logged_in_user, only: [:create, :destroy]
-  before_action :correct_user,   only: :destroy
+  before_action :logged_in_user, only: [:create, :destroy, :edit, :update]
+  before_action :correct_user, only: :destroy
 
   def index
     if params[:begin].blank?||params[:end].blank?
@@ -16,40 +16,42 @@ class HomesController < ApplicationController
     @home = current_user.homes.build(home_params)
     if @home.save
       flash[:success] = "Home created!"
-      redirect_to root_url
+      redirect_to user_path(current_user)
     else
-      @feed_items = []
-      render 'static_pages/home'
+      @user = current_user
+      @homes = Home.all
+      render "users/show"
     end
   end
 
   def destroy
     @home.destroy
     flash[:success] = "Home deleted"
-  #  redirect_to request.referrer || root_url 
-  redirect_to  root_url 
+    redirect_to current_user
   end
 
   def edit
     @home = Home.find(params[:id])
-    render 'edit'
-  end  
-  
-  def update  
+  end
+
+  def update
     @home = Home.find(params[:id])
     if @home.update_attributes(home_params)
-    redirect_to root_url
+      flash[:success] = "Home updated"
+      redirect_to user_path(current_user)
+    else
+      render "edit"
+    end
   end
-end
 
   private
 
-    def home_params
-      params.require(:home).permit(:name, :status, :number_floors, :price, :picture)
-    end
+  def home_params
+    params.require(:home).permit(:name, :status, :number_floors, :full_price, :picture, :price_unit)
+  end
 
-    def correct_user
-      @home = current_user.homes.find_by(id: params[:id])
-      redirect_to root_url if @home.nil?
-    end
+  def correct_user
+    @home = current_user.homes.find_by(id: params[:id])
+    redirect_to root_url if @home.nil?
+  end
 end

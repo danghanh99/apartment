@@ -4,17 +4,11 @@ class ApplicationController < ActionController::Base
 
   private
 
-    # Confirms a logged-in user.
-    def logged_in_user
-      unless logged_in?
-        store_location
-        flash[:danger] = I18n.t(:login_message)
-        redirect_to login_url
-      end
+  # Confirms a logged-in user.
+  def logged_in_user
+    unless logged_in?
+      flash[:danger] = I18n.t(:login_message)
+      redirect_to login_url
     end
-    
-    def switch_locale(&action)
-      locale = params[:locale] || I18n.default_locale
-      I18n.with_locale(locale, &action)
-    end
+  end
 end
