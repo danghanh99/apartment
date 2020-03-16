@@ -88,10 +88,13 @@ class HomesControllerTest < ActionDispatch::IntegrationTest
     end
     assert_template "edit"
   end
- 
+
   test "successful search home" do
-    get homes_path
-    @result = Home.search("nha","","100000","5000000")
+    assert_no_difference "Home.count" do
+      get search_path,
+          params: { search_home: "available" }
+      assert_select ".name", 3
+      assert_select ".status", 3
+    end
   end
-  
 end
