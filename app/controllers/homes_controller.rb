@@ -3,15 +3,11 @@ class HomesController < ApplicationController
   before_action :correct_user, only: :destroy
 
   def index
-      @begin = params[:begin]  
-      @end   = params[:end]
       @search = params[:search]
       @number_floors = params[:number_floors]
-      @results = Home.all
-      @results = Home.where("lower(name) LIKE :search OR lower(status) LIKE :search", search: "%#{@search}%")
-      @results = Home.where('number_floors < ?', @number_floors) if @number_floors!=""
-      @results = Home.where('full_price > ?', @begin) if @begin!="" 
-      @results = Home.where('full_price < ?', @end) if @end!=""
+      @price_begin = params[:price_begin]  
+      @price_end   = params[:price_end]
+      @results = Home.search(@search, @number_floors, @price_begin, @price_end)
   end
 
   def create

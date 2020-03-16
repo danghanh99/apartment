@@ -5,8 +5,8 @@
 <%= form_tag(homes_path, :method => "get", class: 'navbar-form navbar-left') do %> 
   <%= search_field_tag :search, params[:search], placeholder: "search...", class: "form-control"%> 
   <%= number_field_tag :number_floors, params[:number_floors], placeholder: "number floors", class: "form-control" %>
-  <%= number_field_tag :begin, params[:begin], placeholder: "from price", class: "form-control" %>
-  <%= number_field_tag :end, params[:end], placeholder: "to price", class: "form-control" %> 
+  <%= number_field_tag :price_begin, params[:price_begin], placeholder: "from price", class: "form-control" %>
+  <%= number_field_tag :price_end, params[:price_end], placeholder: "to price", class: "form-control" %> 
   <%= button_tag "", :class => 'btn btn-info glyphicon glyphicon-search',:name => nil%>  
 <% end %>
 </div>

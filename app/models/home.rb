@@ -22,4 +22,13 @@ class Home < ApplicationRecord
       errors.add(:picture, "should be less than 5MB")
     end
   end
+
+  def self.search(search_home, number_floors, price_begin, price_end )
+      @results = Home.all
+      @results = Home.where("lower(name) LIKE :search OR lower(status) LIKE :search", search: "%#{search_home}%") if search_home!=""
+      @results = Home.where('number_floors < ?', number_floors) if number_floors!=""
+      @results = Home.where('full_price > ?', price_begin) if price_begin!="" 
+      @results = Home.where('full_price < ?', price_end) if price_end!=""
+      return @results
+  end
 end
