@@ -89,5 +89,9 @@ class HomesControllerTest < ActionDispatch::IntegrationTest
     assert_template "edit"
   end
  
+  test "successful search home" do
+    get homes_path
+    @result = Home.search("nha","","100000","5000000")
+  end
   
 end
