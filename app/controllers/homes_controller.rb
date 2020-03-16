@@ -7,7 +7,7 @@ class HomesController < ApplicationController
     @number_floors = params[:number_floors]
     @price_begin = params[:price_begin]
     @price_end = params[:price_end]
-    @homes = Home.search(@search_home, @number_floors, @price_begin, @price_end)
+    @homes = Home.search(params)
   end
 
   def create
