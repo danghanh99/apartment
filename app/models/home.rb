@@ -25,10 +25,10 @@ class Home < ApplicationRecord
 
   def self.search(search_home, number_floors, price_begin, price_end)
     results = Home.all
-    results = Home.where("lower(name) LIKE :search OR lower(status) LIKE :search", search: "%#{search_home}%") if search_home.present?
-    results = Home.where("number_floors < ?", number_floors) if number_floors.present?
-    results = Home.where("full_price > ?", price_begin) if price_begin.present?
-    results = Home.where("full_price < ?", price_end) if price_end.present?
+    results = results.where("lower(name) LIKE :search OR lower(status) LIKE :search", search: "%#{search_home}%") if search_home.present?
+    results = results.where("number_floors < ?", number_floors) if number_floors.present?
+    results = results.where("full_price > ?", price_begin) if price_begin.present?
+    results = results.where("full_price < ?", price_end) if price_end.present?
     results
   end
 end
