@@ -92,9 +92,9 @@ class HomesControllerTest < ActionDispatch::IntegrationTest
   test "successful search home" do
     assert_no_difference "Home.count" do
       get search_path,
-          params: { search_home: "available" }
-      assert_select ".name", 3
-      assert_select ".status", 3
+          params: { search_home: "available", price_begin: 500000, price_end: 2500000 }
+      assert_select ".name", 2
+      assert_select ".status", 2
     end
   end
 end
