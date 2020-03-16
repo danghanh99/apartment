@@ -3,10 +3,6 @@ class HomesController < ApplicationController
   before_action :correct_user, only: :destroy
 
   def index
-    @search_home = params[:search_home]
-    @number_floors = params[:number_floors]
-    @price_begin = params[:price_begin]
-    @price_end = params[:price_end]
     @homes = Home.search(params)
   end
 
