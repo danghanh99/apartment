@@ -2,6 +2,10 @@ class HomesController < ApplicationController
   before_action :logged_in_user, only: [:create, :destroy, :edit, :update]
   before_action :correct_user, only: :destroy
 
+  def index
+    @homes = Home.search(params)
+  end
+
   def create
     @home = current_user.homes.build(home_params)
     if @home.save
