@@ -1,0 +1,12 @@
+<div class="center jumbotron">
+  <h1>Apartment</h1>
+</div>
+<div class="row">
+<%= form_tag(homes_path, :method => "get", class: "navbar-form navbar-left") do %>  
+  <%= search_field_tag :search_home, params[:search_home], placeholder: "search home...", class: "form-control" %>
+  <%= number_field_tag :number_floors, params[:number_floors], placeholder: "number floors", class: "form-control" %>
+  <%= number_field_tag :price_begin, params[:price_begin], placeholder: "from price", class: "form-control" %>
+  <%= number_field_tag :price_end, params[:price_end], placeholder: "to price", class: "form-control" %>
+  <%= button_tag "", :class => "btn btn-info glyphicon glyphicon-search", :name => nil %>  
+<% end %>
+</div>

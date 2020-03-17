@@ -7,7 +7,7 @@
   <% else %>
     <span class="full_price"><label>Full Price:</label> $<%= home.full_price %></span></br>
   <% end %>
-  <%= image_tag home.picture.url if home.picture? %>
+  <span class="posted"><%= image_tag home.picture.url if home.picture? %></span></br>
   
   <span class="timestamp">
     <label>Posted</label> <%= time_ago_in_words(home.created_at) %> ago.

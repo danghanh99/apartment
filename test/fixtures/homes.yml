@@ -13,3 +13,27 @@ two:
   status: MyText
   number_floors: 1
   full_price: 1
+
+a1:
+  user: two
+  name: hoa khanh
+  status: available
+  number_floors: 1
+  full_price: 1000000
+  price_unit: VND 
+
+a2:
+  user: two
+  name: au co
+  status: available
+  number_floors: 5
+  full_price: 3000000
+  price_unit: VND 
+
+a3:
+  user: two
+  name: dong ke
+  status: available
+  number_floors: 15
+  full_price: 2000000
+  price_unit: VND   
