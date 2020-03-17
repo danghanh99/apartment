@@ -23,4 +23,4 @@
 .byebug_history
 .env
 coverage
-public
+public/uploads
