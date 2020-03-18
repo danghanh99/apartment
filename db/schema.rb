@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200317142859) do
+ActiveRecord::Schema.define(version: 20200318100010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,9 +34,12 @@ ActiveRecord::Schema.define(version: 20200317142859) do
     t.bigint "home_id"
     t.datetime "checkin_time"
     t.integer "rental_period"
-    t.string "order_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.text "address"
+    t.integer "phone_number"
+    t.string "order_status", default: "ordering"
     t.index ["home_id"], name: "index_orders_on_home_id"
     t.index ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_orders_on_user_id"

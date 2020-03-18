@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get "/search", to: "homes#index"
   resources :users
   resources :account_activations
-  resources :homes
+  resources :homes do
+    resources :orders
+  end
   resources :password_resets
 end

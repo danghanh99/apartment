@@ -1,0 +1,16 @@
+<%= form_for([@home,@home.orders.build]) do |f| %>
+  <%= render "shared/error_messages", object: f.object %>
+  <div class="field">
+    <label>Name:</label>
+    <%= f.text_field :name, placeholder: "guest's name..." %>
+    <label>Address:</label>
+    <%= f.text_field :address, placeholder: "guest's address..." %>
+    <label>Phone number:</label>
+    <%= f.number_field :phone_number, placeholder: "guest's phone number..." %>
+    <label>Rental Period:</label>
+    <%= f.select :rental_period, Order.rental_periods.to_a, :prompt => "rental_period" %>
+    <%= f.label :checkin_time%>
+    <%= f.datetime_select :checkin_time, id: :checkin_time, :default => { :hour => (Time.zone.now.hour), :minute => 0 }%>
+  </div>
+  <%= f.submit btn, class: "btn btn-primary" %>
+<% end %>

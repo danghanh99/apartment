@@ -1,0 +1,7 @@
+<li id="order-<%= order.id %>">
+  <span class="checkin_time"><label>Checkin Time:</label> <%= home.checkin_time %></span></br>
+<span class="rental_period"><label>Rental Period:</label> <%= home.rental_period %></span></br>
+<span class="order_status"><label>Order Status:</label> <%= home.order_status %></span></br>
+<span class="timestamp">
+  <label>Posted</label> <%= time_ago_in_words(order.created_at) %> ago.
+</li>
