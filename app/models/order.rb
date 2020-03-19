@@ -9,11 +9,18 @@ class Order < ApplicationRecord
   validates :user_id, presence: true
   validates :home_id, presence: true
   validates :checkin_time, presence: true
+  validate :checkin_time_cannot_be_in_the_past
   validates :rental_period, presence: true
   enum order_status: { requesting: "requesting", approved: "approved", finished: "finished" }
   validates :order_status, presence: true, inclusion: { in: %w(requesting approved finished) }
 
   def self.allowed_rental_duration
     [1, 3, 6, 12]
+  end
+
+  def checkin_time_cannot_be_in_the_past
+    if checkin_time.present? && checkin_time.past?
+      errors.add(:checkin_time, "can't be in the past")
+    end
   end
 end
