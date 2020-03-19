@@ -1,7 +1,20 @@
 <li id="order-<%= order.id %>">
-  <span class="checkin_time"><label>Checkin Time:</label> <%= home.checkin_time %></span></br>
-<span class="rental_period"><label>Rental Period:</label> <%= home.rental_period %></span></br>
-<span class="order_status"><label>Order Status:</label> <%= home.order_status %></span></br>
-<span class="timestamp">
-  <label>Posted</label> <%= time_ago_in_words(order.created_at) %> ago.
+  <span class="name_guest"> <label>Name:</label>
+    <%= order.name %></span></br>
+<span class="address"><label>Address:</label>
+  <%= order.address %></span></br>
+<span class="phone_number"><label>Phone number:</label>
+  <%= order.phone_number %></span></br>
+<span class="checkin_time"><label>Checkin Time:</label>
+  <%= order.checkin_time %></span></br>
+<span class="rental_period"><label>Rental Period:</label>
+  <%= order.rental_period %> month</span></br>
+<span class="order_status"> <label>Order Status:</label>
+  <%= order.order_status %></span></br>
+<span class="timestamp"><label>Posted</label>
+  <%= time_ago_in_words(order.created_at) %> ago.
+</span>
 </li>
+<span class="delete">
+  <p> <%= link_to 'Cancel',[order.home,order], method: :delete, data: {confirm: "Are you sure"} %> </p>
+</span>

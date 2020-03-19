@@ -93,8 +93,8 @@ class HomesControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference "Home.count" do
       get search_path,
           params: { search_home: "", number_floors: "", price_begin: "", price_end: "" }
-      assert_select ".name", 5
-      assert_select ".status", 5
+      assert_select ".name", 6
+      assert_select ".status", 6
     end
   end
 
@@ -102,8 +102,8 @@ class HomesControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference "Home.count" do
       get search_path,
           params: { search_home: "", number_floors: "", price_begin: "", price_end: 2500000 }
-      assert_select ".name", 4
-      assert_select ".status", 4
+      assert_select ".name", 5
+      assert_select ".status", 5
     end
   end
 
@@ -120,8 +120,8 @@ class HomesControllerTest < ActionDispatch::IntegrationTest
     assert_no_difference "Home.count" do
       get search_path,
           params: { search_home: "", number_floors: "", price_begin: 500000, price_end: 2500000 }
-      assert_select ".name", 2
-      assert_select ".status", 2
+      assert_select ".name", 3
+      assert_select ".status", 3
     end
   end
 

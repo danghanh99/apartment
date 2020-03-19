@@ -14,6 +14,13 @@ two:
   number_floors: 1
   full_price: 1
 
+a0:
+  user: michael
+  name: au co
+  status: ordered
+  full_price: 1000000
+  price_unit: VND 
+
 a1:
   user: two
   name: hoa khanh

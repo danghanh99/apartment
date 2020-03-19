@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200318100010) do
+ActiveRecord::Schema.define(version: 20200318153124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,7 +39,7 @@ ActiveRecord::Schema.define(version: 20200318100010) do
     t.string "name"
     t.text "address"
     t.integer "phone_number"
-    t.string "order_status", default: "ordering"
+    t.string "order_status", default: "requesting"
     t.index ["home_id"], name: "index_orders_on_home_id"
     t.index ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_orders_on_user_id"

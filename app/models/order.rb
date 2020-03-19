@@ -9,8 +9,11 @@ class Order < ApplicationRecord
   validates :user_id, presence: true
   validates :home_id, presence: true
   validates :checkin_time, presence: true
-  enum rental_period: { one_month: "1", three_month: "3", six_month: "6", one_year: "12" }
-  validates :rental_period, presence: true, inclusion: { in: %w(1 3 6 12) }
-  enum order_status: { odering: "ordering", checkout: "checkout" }
-  validates :order_status, presence: true, inclusion: { in: %w(ordering checkout) }
+  validates :rental_period, presence: true
+  enum order_status: { requesting: "requesting", approved: "approved" }
+  validates :order_status, presence: true, inclusion: { in: %w(requesting approved) }
+
+  def self.allowed_rental_duration
+    [1, 3, 6, 12]
+  end
 end
