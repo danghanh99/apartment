@@ -9,8 +9,8 @@
     <%= f.number_field :phone_number, placeholder: "guest's phone number..." %>
     <label>Rental Period:</label>
     <%= f.select :rental_period, options_for_select(Order.allowed_rental_duration), {:class => 'form-control', :prompt => 'rental_period'} %>
-    <%= f.label :checkin_time%>
-    <%= f.datetime_select :checkin_time, id: :checkin_time, :default => { :hour => (Time.zone.now.hour), :minute => 0 }%>
-  </div>
-  <%= f.submit btn, class: "btn btn-primary" %>
+    <label>CheckIn Time:</label></br>
+  <span class="datetime"> <%= f.datetime_select :checkin_time, :order => [:year, :month, :day, :hour, :minute], :start_year => 2020, :end_year => 2050 %></span>
+</div>
+<%= f.submit btn, class: "btn btn-primary" %>
 <% end %>
