@@ -10,8 +10,8 @@ class Order < ApplicationRecord
   validates :home_id, presence: true
   validates :checkin_time, presence: true
   validates :rental_period, presence: true
-  enum order_status: { requesting: "requesting", approved: "approved" }
-  validates :order_status, presence: true, inclusion: { in: %w(requesting approved) }
+  enum order_status: { requesting: "requesting", approved: "approved", finished: "finished" }
+  validates :order_status, presence: true, inclusion: { in: %w(requesting approved finished) }
 
   def self.allowed_rental_duration
     [1, 3, 6, 12]

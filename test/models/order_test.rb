@@ -11,4 +11,19 @@ class OrderTest < ActiveSupport::TestCase
   test "should be valid" do
     assert @order.valid?
   end
+
+  test "name should be present" do
+    @order.name = " "
+    assert_not @order.valid?
+  end
+
+  test "address should be present" do
+    @order.address = " "
+    assert_not @order.valid?
+  end
+
+  test "phone number should be present" do
+    @order.phone_number = " "
+    assert_not @order.valid?
+  end
 end

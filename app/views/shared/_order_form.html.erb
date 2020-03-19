@@ -1,4 +1,4 @@
-<%= form_for([@home,@home.orders.build]) do |f| %>
+<%= form_for([@home, @order || @home.orders.build]) do |f| %>
   <%= render "shared/error_messages", object: f.object %>
   <div class="field">
     <label>Name:</label>
