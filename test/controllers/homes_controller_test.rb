@@ -128,7 +128,7 @@ class HomesControllerTest < ActionDispatch::IntegrationTest
   test "search should get home have status: avai" do
     assert_no_difference "Home.count" do
       get search_path,
-          params: { search_home: "avai", number_floors: "", price_begin: "", price_end: "" }
+          params: { search_home: "", home_status: "avai", number_floors: "", price_begin: "", price_end: "" }
       assert_select ".name", 3
       assert_select ".status", 3
     end
