@@ -28,6 +28,7 @@ class OrdersController < ApplicationController
   private
 
   def order_params
+    params[:order][:checkin_time] = DateTime.strptime(params[:order][:checkin_time], "%m/%d/%Y %l:%M %p")
     params.require(:order).permit(:name, :address, :phone_number, :checkin_time, :rental_period)
   end
 end

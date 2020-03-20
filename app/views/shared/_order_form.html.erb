@@ -10,7 +10,18 @@
     <label>Rental Period:</label>
     <%= f.select :rental_period, options_for_select(Order.allowed_rental_duration), {:class => 'form-control', :prompt => 'rental_period'} %>
     <label>CheckIn Time:</label></br>
-  <span class="datetime"> <%= f.datetime_select :checkin_time, :order => [:year, :month, :day, :hour, :minute], :start_year => 2020, :end_year => 2050 %></span>
-</div>
-<%= f.submit btn, class: "btn btn-primary" %>
+  <div class="form-group">
+    <div class='input-group date' id='datetimepicker1'>
+      <%= f.text_field :checkin_time, placeholder: "Input your checkin time...", class: "form-control"  %>
+      <span class="input-group-addon">
+        <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+  <script type="text/javascript">
+    $(function () {
+        $('#datetimepicker1').datetimepicker();
+    });
+  </script>
+  <%= f.submit btn, class: "btn btn-primary" %>
 <% end %>

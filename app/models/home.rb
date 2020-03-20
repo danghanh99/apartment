@@ -26,7 +26,8 @@ class Home < ApplicationRecord
 
   def self.search(params)
     results = Home.all
-    results = results.where("lower(name) LIKE :search OR lower(status) LIKE :search", search: "%#{params[:search_home]}%") if params[:search_home].present?
+    results = results.where("lower(name) LIKE :search", search: "%#{params[:search_home]}%") if params[:search_home].present?
+    results = results.where("lower(status) LIKE :search", search: "%#{params[:home_status]}%") if params[:home_status].present?
     results = results.where("number_floors < ?", params[:number_floors]) if params[:number_floors].present?
     results = results.where("full_price > ?", params[:price_begin]) if params[:price_begin].present?
     results = results.where("full_price < ?", params[:price_end]) if params[:price_end].present?
