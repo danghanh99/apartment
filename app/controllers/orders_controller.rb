@@ -1,4 +1,8 @@
 class OrdersController < ApplicationController
+  def index
+    @orders = Order.all
+  end
+
   def new
     @home = Home.find(params[:home_id])
     @order = Order.new
@@ -23,6 +27,24 @@ class OrdersController < ApplicationController
     @home.update status: "available"
     flash[:success] = "Order deleted"
     redirect_to current_user
+  end
+
+  def approved
+    @order = Order.find_by(id: params[:order_id])
+    @home = Home.find_by(id: @order.home_id)
+    @home.update status: "rented"
+    @order.update order_status: "approved"
+    flash[:success] = "approved Order"
+    redirect_to orders_path
+  end
+
+  def deny
+    @order = Order.find_by(id: params[:order_id])
+    @home = Home.find_by(id: @order.home_id)
+    @home.update status: "available"
+    @order.update order_status: "deny"
+    flash[:danger] = "deny Order"
+    redirect_to orders_path
   end
 
   private

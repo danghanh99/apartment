@@ -11,8 +11,8 @@ class Order < ApplicationRecord
   validates :checkin_time, presence: true
   validate :checkin_time_cannot_be_in_the_past
   validates :rental_period, presence: true
-  enum order_status: { requesting: "requesting", approved: "approved", finished: "finished" }
-  validates :order_status, presence: true, inclusion: { in: %w(requesting approved finished) }
+  enum order_status: { requesting: "requesting", approved: "approved", deny: "deny", finished: "finished" }
+  validates :order_status, presence: true, inclusion: { in: %w(requesting approved finished deny) }
 
   def self.allowed_rental_duration
     [1, 3, 6, 12]
