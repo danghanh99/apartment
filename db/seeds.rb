@@ -12,6 +12,7 @@ users = User.order(:created_at).take(6)
   users.each { |user|
     user.homes.create!(name: "Nha a",
                        status: "available",
+                       address: "197 nguyen luong bang, lien chieu, da nang",
                        number_floors: 3,
                        full_price: 60000000)
   }

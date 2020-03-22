@@ -14,6 +14,7 @@ class Home < ApplicationRecord
   validate :picture_size
   enum price_unit: { VND: "VND", USD: "USD" }
   validates :price_unit, presence: true, inclusion: { in: %w(VND USD) }
+  validates :address, presence: true, length: { minimum: 5, maximum: 250 }
 
   private
 
