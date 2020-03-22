@@ -13,7 +13,9 @@ Rails.application.routes.draw do
     patch "/deny", to: "orders#deny"
     patch "/approved", to: "orders#approved"
   end
-  resources :users
+  resources :users do
+    get "/profile", to: "users#profile"
+  end
   resources :account_activations
   resources :homes do
     resources :orders

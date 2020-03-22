@@ -7,6 +7,10 @@ class UsersController < ApplicationController
     @homes = @user.homes
   end
 
+  def profile
+    @user = User.find_by id: params[:user_id]
+  end
+
   def new
     @user = User.new
   end

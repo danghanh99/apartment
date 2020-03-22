@@ -11,6 +11,11 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  validates :phone_number, :presence => true,
+                           :numericality => true,
+                           :length => { :minimum => 10, :maximum => 15 }
+  number_regex = /\d[0-9]\)*\z/
+  validates_format_of :phone_number, :with => number_regex, :message => "Only positive number without spaces are allowed"
 
   # Returns the hash digest of the given string.
   def User.digest(string)

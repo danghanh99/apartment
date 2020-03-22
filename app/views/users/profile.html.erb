@@ -1,0 +1,9 @@
+ <% if @user.present? %>
+  <span class="name"><label>Name:</label>
+    <%= @user.name %></span></br>
+<span class="email"><label>Email:</label>
+  <%= @user.email %></span></br>
+<span class="phone number"><label>Phone Number:</label>
+  <%= @user.phone_number %></span></br>
+<% end %>
+<li><%= link_to "Update profile", edit_user_path(@user) %></li>
