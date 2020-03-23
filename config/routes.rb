@@ -12,6 +12,9 @@ Rails.application.routes.draw do
   resources :orders do
     patch "/deny", to: "orders#deny"
     patch "/approved", to: "orders#approved"
+    get "/requesting_extension", to: "orders#requesting_extension"
+    patch "/approved_extension", to: "orders#approved_extension"
+    patch "/deny_extension", to: "orders#deny_extension"
   end
   resources :users do
     get "/profile", to: "users#profile"

@@ -11,4 +11,11 @@ class ApplicationController < ActionController::Base
       redirect_to login_url
     end
   end
+
+  def logged_in_admin
+    unless logged_in? && admin?
+      flash[:danger] = I18n.t(:login_message)
+      redirect_to login_url
+    end
+  end
 end
