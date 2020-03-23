@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200322142411) do
+ActiveRecord::Schema.define(version: 20200323080247) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,26 @@ ActiveRecord::Schema.define(version: 20200322142411) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "rooms", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "user_id"
+    t.bigint "home_id"
+    t.integer "length"
+    t.integer "width"
+    t.integer "height"
+    t.integer "number_room"
+    t.integer "price"
+    t.string "price_unit"
+    t.string "status"
+    t.integer "area"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["home_id"], name: "index_rooms_on_home_id"
+    t.index ["order_id"], name: "index_rooms_on_order_id"
+    t.index ["user_id", "created_at"], name: "index_rooms_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_rooms_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -63,4 +83,7 @@ ActiveRecord::Schema.define(version: 20200322142411) do
   add_foreign_key "homes", "users"
   add_foreign_key "orders", "homes"
   add_foreign_key "orders", "users"
+  add_foreign_key "rooms", "homes"
+  add_foreign_key "rooms", "orders"
+  add_foreign_key "rooms", "users"
 end

@@ -1,4 +1,5 @@
 class Order < ApplicationRecord
+  has_many :rooms, dependent: :destroy
   belongs_to :user
   belongs_to :home
   default_scope -> { order(created_at: :desc) }
