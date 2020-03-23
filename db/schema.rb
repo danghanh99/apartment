@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200323080247) do
+ActiveRecord::Schema.define(version: 20200323131300) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,7 +38,9 @@ ActiveRecord::Schema.define(version: 20200323080247) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "order_status", default: "requesting"
+    t.bigint "room_id"
     t.index ["home_id"], name: "index_orders_on_home_id"
+    t.index ["room_id"], name: "index_orders_on_room_id"
     t.index ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -53,7 +55,7 @@ ActiveRecord::Schema.define(version: 20200323080247) do
     t.integer "number_room"
     t.integer "price"
     t.string "price_unit"
-    t.string "status"
+    t.string "status", default: "available "
     t.integer "area"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -82,6 +84,7 @@ ActiveRecord::Schema.define(version: 20200323080247) do
 
   add_foreign_key "homes", "users"
   add_foreign_key "orders", "homes"
+  add_foreign_key "orders", "rooms"
   add_foreign_key "orders", "users"
   add_foreign_key "rooms", "homes"
   add_foreign_key "rooms", "orders"

@@ -8,13 +8,14 @@
 <span class="timestamp">
   <label>Posted</label> <%= time_ago_in_words(home.created_at) %> ago.
   <% if logged_in? %>
-    <span class="order"><%= link_to "Order", new_home_order_url(home) %>
-      <% if admin? %>
-        <span class="edit"><%= link_to "edit", edit_home_url(home.id) %>
-          <%= link_to "delete", home, method: :delete,
-                                    data: { confirm: "You sure?" } %>
-        </span>
+    <span class="order"><%= link_to "Order", new_home_order_url(home) , class: "btn btn-primary"%>
+      <span class="detail"><%= link_to "Detail", home_url(home) , class: "btn btn-primary"%>
+        <% if admin? %>
+          <span class="edit"><%= link_to "edit", edit_home_url(home.id) , class: "btn btn-primary"%>
+            <%= link_to "delete", home, method: :delete,
+                                    data: { confirm: "You sure?" } , class: "btn btn-primary"%>
+          </span>
+        <% end %>
       <% end %>
-    <% end %>
-  </span>
-</li>
+    </span>
+  </li>

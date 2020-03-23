@@ -22,6 +22,7 @@ Rails.application.routes.draw do
   resources :account_activations
   resources :homes do
     resources :orders
+    resources :rooms
   end
   resources :password_resets
 end

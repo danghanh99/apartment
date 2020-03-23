@@ -6,6 +6,10 @@ class HomesController < ApplicationController
     @homes = Home.search(params)
   end
 
+  def show
+    @home = Home.find(params[:id])
+  end
+
   def create
     @home = current_user.homes.build(home_params)
     if @home.save

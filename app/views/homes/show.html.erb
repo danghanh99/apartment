@@ -1,0 +1,20 @@
+<div class="row">
+  <aside class="col-md-4">
+    <section class="home_info">
+      <%=render @home %>
+    </section>
+    <% if admin? %>
+      <section class="room_form">
+        <%= render partial: "shared/room_form", locals: { btn: "Post" } %>
+      </section>
+    <% end %>
+  </aside>
+  <div class="col-md-8">
+    <% if @home.rooms.any? %>
+      <h3>Rooms (<%= @home.rooms.count %>)</h3>
+      <ol class="rooms">
+        <%= render @home.rooms %></p>
+    </ol>
+  <% end %>
+</div>
+</div>
