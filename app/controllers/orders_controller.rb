@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :index, :destroy]
-  before_action :logged_in_admin, only: [:deny, :approved]
+  before_action :logged_in_admin, only: [:deny, :approve]
 
   def index
-    @orders = Order.search_order(params)
+    @orders = Order.search(params, current_user.id) if params.present?
   end
 
   def new
@@ -49,13 +49,13 @@ class OrdersController < ApplicationController
   def destroy
     @home = Home.find(params[:home_id])
     @order = @home.orders.find(params[:id])
-    if @order.order_status == "requesting" || @order.order_status == "deny" || @order.order_status == "finished"
+    if @order.status == "requesting" || @order.status == "denied" || @order.status == "finished"
       @order.destroy
       @home.available!
       flash[:success] = "Order deleted"
       redirect_to orders_path
     else
-      flash[:danger] = "Request deny , please contact to landlord"
+      flash[:danger] = "Request denied , please contact to landlord"
       redirect_to orders_path
     end
   end
@@ -63,19 +63,25 @@ class OrdersController < ApplicationController
   def cancel
     @order = Order.new
     @order = Order.cancel(params)
-    @order.cancel? ? flash[:success] = "Order cancelled" : flash[:danger] = "Request deny , please contact to landlord"
+    @order.cancelled? ? flash[:success] = "Order cancelled" : flash[:danger] = "Request deny , please contact to landlord"
     redirect_to orders_path
   end
 
-  def approved
-    Order.approved(params)
+  def finish
+    Order.finish(params)
+    flash[:success] = "finished Order"
+    redirect_to orders_path
+  end
+
+  def approve
+    Order.approve(params)
     flash[:success] = "approved Order"
     redirect_to orders_path
   end
 
   def deny
     Order.deny(params)
-    flash[:danger] = "deny Order"
+    flash[:danger] = "denied Order"
     redirect_to orders_path
   end
 

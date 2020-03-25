@@ -1,5 +1,11 @@
 <%= render partial: "search_order" %>
 <div class="row">
-  <% if @orders %>
+  <div class="col-md-4">
+    <% count_status.each do |status, number| %>
+      <p></label>Status: <label> <%= number %> <%= status %> </p>
+    <% end %>
+  </div>
+  <div class="col-md-8">
     <%= render @orders %></br>
-<% end %>
+</div>
+</div>

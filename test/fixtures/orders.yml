@@ -5,11 +5,11 @@ one:
   home: one
   checkin_time: 2020-03-17 21:17:33
   rental_period: 1
-  order_status: MyString
+  status: MyString
 
 two:
   user: two
   home: two
   checkin_time: 2020-03-17 21:17:33
   rental_period: 1
-  order_status: MyString
+  status: MyString

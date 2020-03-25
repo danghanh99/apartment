@@ -4,7 +4,9 @@
 Number room: <%= @home.rooms.count%>
 <%= render @home.rooms %></p>
 </div>
-<div class="col-md-4">
-  <%= render partial: "shared/room_form", locals: { btn: "Post" } %>
-</div>
+<%if admin?%>
+  <div class="col-md-4">
+    <%= render partial: "shared/room_form", locals: { btn: "Post" } %>
+  </div>
+<%end%>
 </div>

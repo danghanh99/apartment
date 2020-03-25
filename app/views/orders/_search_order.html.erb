@@ -3,6 +3,6 @@
 </div>
 <div class="row">
   <%= form_tag(orders_path, :method => "get", class: "navbar-form navbar-left") do %>
-    <%= select_tag :search_order,  options_for_select(Order.order_statuses.to_a, params[:search_order]),onchange: 'this.form.submit();', include_blank: "search order home", class: "form-control"%>
+    <%= select_tag :search_order,  options_for_select(options_for_select_search, params[:search_order]),onchange: 'this.form.submit();', include_blank: "Search order home", class: "form-control"%>
   <% end %>
 </div>

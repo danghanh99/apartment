@@ -18,8 +18,8 @@
   <%= order.checkin_time %></span></br>
 <span class="rental_period"><label>Rental Period:</label>
   <%= order.rental_period %> month</span></br>
-<span class="order_status"> <label>Order Status:</label>
-  <%= order.order_status %></span></br>
+<span class="status"> <label>Status:</label>
+  <%= order.status %></span></br>
 <span class="timestamp"><label>Posted</label>
   <%= time_ago_in_words(order.created_at) %> ago.
 </span>
@@ -29,6 +29,7 @@
   <%= link_to 'Requesting Extension',order_requesting_extension_path(order), method: :get, class: "btn btn-primary" %>
   <%if admin? %>
     <%= link_to 'Deny',order_deny_url(order), method: :patch , class: "btn btn-primary"%>
-    <%= link_to 'Approved',order_approved_url(order), method: :patch, class: "btn btn-primary" %></br></p>
+    <%= link_to 'Approve',order_approve_url(order), method: :patch, class: "btn btn-primary" %></br></p>
+<%= link_to 'Finish',order_finish_url(order), method: :patch , class: "btn btn-primary"%>
 <%end%>
 </span>
