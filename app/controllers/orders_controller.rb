@@ -3,24 +3,25 @@ class OrdersController < ApplicationController
   before_action :logged_in_admin, only: [:deny, :approved]
 
   def index
-    @orders = current_user.orders
-    @orders = Order.all if current_user.admin?
+    @orders = Order.search_order(params)
   end
 
   def new
-    @home = Home.find(params[:home_id])
+    @home = Home.find(params[:home_id]) if params[:home_id].present?
+    @room = Room.find(params[:room_id]) if params[:room_id].present?
     @order = Order.new
   end
 
   def requesting_extension
     @order = Order.find_by(id: params[:order_id])
-    @home = Home.find_by(id: @order.home_id)
+    @home = @order.home if @order.home_id.present?
+    @room = @order.room if @order.room_id.present?
   end
 
   def update
     @order = Order.find_by(id: params[:id])
     if @order.update_attributes(order_params)
-      @order.update order_status: "requesting extension"
+      @order.requesting_extension!
       flash[:success] = "requesting extension Order"
       redirect_to orders_path
     else
@@ -29,11 +30,15 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @home = Home.find(params[:home_id])
-    @order = @home.orders.build(order_params)
+    @home = Home.find(params[:home_id]) if params[:home_id].present?
+    @order = @home.orders.build(order_params) if @home.present?
+
+    @room = Room.find(params[:room_id]) if params[:room_id].present?
+    @order = @room.orders.build(order_params) if @room.present?
     @order.user_id = current_user.id
     if @order.save
-      @home.update status: "ordered"
+      @home.ordered! if @home.present?
+      @room.ordered! if @room.present?
       flash[:success] = "Order created!"
       redirect_to orders_path
     else
@@ -46,7 +51,7 @@ class OrdersController < ApplicationController
     @order = @home.orders.find(params[:id])
     if @order.order_status == "requesting" || @order.order_status == "deny" || @order.order_status == "finished"
       @order.destroy
-      @home.update status: "available"
+      @home.available!
       flash[:success] = "Order deleted"
       redirect_to orders_path
     else
@@ -55,36 +60,21 @@ class OrdersController < ApplicationController
     end
   end
 
-  def approved_extension
-    @order = Order.find_by(id: params[:order_id])
-    @home = Home.find_by(id: @order.home_id)
-    @order.update order_status: "approved extension"
-    flash[:success] = "approved extension Order"
+  def cancel
+    @order = Order.new
+    @order = Order.cancel(params)
+    @order.cancel? ? flash[:success] = "Order cancelled" : flash[:danger] = "Request deny , please contact to landlord"
     redirect_to orders_path
   end
 
   def approved
-    @order = Order.find_by(id: params[:order_id])
-    @home = Home.find_by(id: @order.home_id)
-    @home.update status: "rented"
-    @order.update order_status: "approved"
+    Order.approved(params)
     flash[:success] = "approved Order"
     redirect_to orders_path
   end
 
-  def deny_extension
-    @order = Order.find_by(id: params[:order_id])
-    @home = Home.find_by(id: @order.home_id)
-    @order.update order_status: "deny extension"
-    flash[:danger] = "deny extension Order"
-    redirect_to orders_path
-  end
-
   def deny
-    @order = Order.find_by(id: params[:order_id])
-    @home = Home.find_by(id: @order.home_id)
-    @home.update status: "available"
-    @order.update order_status: "deny"
+    Order.deny(params)
     flash[:danger] = "deny Order"
     redirect_to orders_path
   end

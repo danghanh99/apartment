@@ -3,6 +3,7 @@ class HomesController < ApplicationController
   before_action :correct_user, only: :destroy
 
   def index
+    byebug
     @homes = Home.search(params)
   end
 

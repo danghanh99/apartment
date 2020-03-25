@@ -1,14 +1,14 @@
 <%= form_for([@home, @room || @home.rooms.build]) do |f| %>
   <%= render "shared/error_messages", object: f.object %>
   <div class="field">
-    <label>Number Room:</label> <%= f.text_field :number_room, placeholder: "number room ..." %>
-    <label>Area:</label> <%= f.text_field :area, placeholder: "area..." %>
-    <label>Length:</label> <%= f.text_field :length, placeholder: "length..." %>
-    <label>Width:</label><%= f.text_field :width, placeholder: "width..." %>
-    <label>Height:</label> <%= f.text_field :height, placeholder: "height..." %>
-    <label>Status:</label><%= f.select :status, Room.statuses.to_a, :prompt => "status" %>
-    <label>Price:</label> <%= f.text_field :price, placeholder: "price..." %>
-    <label>Price Unit</label><%= f.select :price_unit, Room.price_units.to_a, :prompt => "price_unit" %>
+    <label>Number Room:</label> <%= f.number_field :number_room, placeholder: "number room ..." , class: "form-control"%>
+    <label>Area (m2):</label> <%= f.number_field :area, placeholder: "area...", class: "form-control" %>
+    <label>Length:</label> <%= f.number_field :length, placeholder: "length...", class: "form-control" %>
+    <label>Width:</label><%= f.number_field :width, placeholder: "width...", class: "form-control" %>
+    <label>Height:</label> <%= f.number_field :height, placeholder: "height..." , class: "form-control"%>
+    <label>Status:</label><%= f.select :status, Room.statuses.to_a, :prompt => "status", class: "form-control" %>
+    <label>Price:</label> <%= f.number_field :price, placeholder: "price...", class: "form-control" %>
+    <label>Price Unit</label><%= f.select :price_unit, Room.price_units.to_a, :prompt => "price_unit", class: "form-control" %>
   </div>
   <%= f.submit btn, class: "btn btn-primary" %>
 <% end %>

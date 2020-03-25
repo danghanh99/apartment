@@ -8,9 +8,10 @@
 <span class="price"><label>Price:</label><%= format_currency(room.price, room.price_unit) %></span><br>
 <span class="timestamp">
   <% if logged_in? %>
-    <span class="order"><%= link_to "Order", "#" , class: "btn btn-primary"%>
+    <span class="order"><%= link_to "Order", new_room_order_path(room) , class: "btn btn-primary"%>
       <% if admin? %>
-        <span class="edit"><%= link_to "edit",  edit_home_room_path([room.home,room])  , class: "btn btn-primary"%>
+        <span class="edit">
+          <%= link_to "edit", edit_home_room_path(home_id: room.home.id, id: room.id), class: "btn btn-primary"%>
           <%= link_to "delete", [room.home,room] , method: :delete,
                                     data: { confirm: "You sure?" } , class: "btn btn-primary"%>
         </span>

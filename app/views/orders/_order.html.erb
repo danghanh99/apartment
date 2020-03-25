@@ -1,10 +1,17 @@
 <li id="order-<%= order.id %>">
   <% @user = User.find_by id: order.user_id %>
   <% @home = Home.find_by id: order.home_id %>
+  <% @room = Room.find_by id: order.room_id %>
   <span class="name_guest"> <label>Name:</label>
     <%= @user.name %></span></br>
-<span class="address"><label>Address:</label>
-  <%= @home.address %></span></br>
+<%if @home.present?%>
+  <span class="address"><label>Address:</label>
+    <%= @home.address %></span></br>
+<%end%>
+<%if @room.present?%>
+  <span class="address"><label>Number Room:</label>
+    <%= @room.number_room %></span></br>
+<%end%>
 <span class="phone_number"><label>Phone number:</label>
   <%= @user.phone_number %></span></br>
 <span class="checkin_time"><label>Checkin Time:</label>
@@ -18,12 +25,10 @@
 </span>
 </li>
 <span class="delete">
-  <%= link_to 'Cancel',[order.home,order], method: :delete, data: {confirm: "Are you sure"} , class: "btn btn-primary"%>
+  <%= link_to 'Cancel', order_cancel_path(order), method: :patch, data: {confirm: "Are you sure"} , class: "btn btn-primary"%>
   <%= link_to 'Requesting Extension',order_requesting_extension_path(order), method: :get, class: "btn btn-primary" %>
   <%if admin? %>
     <%= link_to 'Deny',order_deny_url(order), method: :patch , class: "btn btn-primary"%>
     <%= link_to 'Approved',order_approved_url(order), method: :patch, class: "btn btn-primary" %></br></p>
-<%= link_to 'Deny Extension',order_deny_extension_path(order), method: :patch , class: "btn btn-primary"%>
-<%= link_to 'Approved Extension',order_approved_extension_path(order), method: :patch , class: "btn btn-primary"%>
 <%end%>
 </span>

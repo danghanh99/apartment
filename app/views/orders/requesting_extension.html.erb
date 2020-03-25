@@ -1,7 +1,14 @@
-<%= form_for([@home, @order || @home.orders.build]) do |f| %>
+<%
+if @home.present?
+  args = @home
+else
+  args =  @room
+end
+%>
+<%= form_for([args, @order || args.orders.build]) do |f| %>
   <%= render "shared/error_messages", object: f.object %>
   <div class="field">
-    <%= render @home%></p>
+    <%= render args%></p>
   <label>Rental Period (Month):</label>
   <%= f.select :rental_period, options_for_select(Order.allowed_rental_duration), {:class => 'form-control', :prompt => 'rental_period'} %>
   <label>CheckIn Time:</label></br>
