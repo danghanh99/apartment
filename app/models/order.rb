@@ -29,39 +29,50 @@ class Order < ApplicationRecord
     end
   end
 
-  def self.cancel(params)
+  def self.cancel(params, check)
     @order = Order.find_by(id: params[:order_id])
-    if @order.status == "requesting" || @order.status == "denied" || @order.status == "finished"
+    if @order.requesting?
       @home.available! if @home.present?
       @room.available! if @room.present?
       @order.cancelled!
+      check = true
     end
-    @order
+    check
   end
   def self.approve(params)
     @order = Order.find_by(id: params[:order_id])
-    @home = @order.home
-    @room = @order.room
-    @home.rented! if @home.present?
-    @room.rented! if @room.present?
-    @order.update status: "approved"
+    if @order.requesting? || @order.requesting_extension?
+      @home = @order.home
+      @room = @order.room
+      @home.rented! if @home.present?
+      @room.rented! if @room.present?
+      @order.update status: "approved"
+    end
+    @order
   end
 
   def self.deny(params)
     @order = Order.find_by(id: params[:order_id])
-    @home = @order.home
-    @room = @order.room
-    @home.available! if @home.present?
-    @room.rented! if @room.present?
-    @order.denied!
+    if @order.requesting? || @order.requesting_extension?
+      @home = @order.home
+      @room = @order.room
+      @home.available! if @home.present?
+      @room.rented! if @room.present?
+      @order.denied!
+    end
+    @order
   end
-  def self.finish(params)
+  def self.finish(params, check)
     @order = Order.find_by(id: params[:order_id])
-    @home = @order.home
-    @room = @order.room
-    @home.available! if @home.present?
-    @room.available! if @room.present?
-    @order.finished!
+    unless @order.finished? || @order.cancelled?
+      @home = @order.home
+      @room = @order.room
+      @home.available! if @home.present?
+      @room.available! if @room.present?
+      @order.finished!
+      check = true
+    end
+    check
   end
   def self.search(params, id)
     @user = User.find_by(id: id)

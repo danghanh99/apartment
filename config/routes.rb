@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     patch "/approve", to: "orders#approve"
     patch "/cancel", to: "orders#cancel"
     patch "/finish", to: "orders#finish"
-    get "/requesting_extension", to: "orders#edit"
+    get "/requesting_extension", to: "orders#requesting_extension"
   end
   resources :users do
     get "/profile", to: "users#profile"
