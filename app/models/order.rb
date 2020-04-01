@@ -60,9 +60,8 @@ class Order < ApplicationRecord
     if @order.requesting? || @order.requesting_extension?
       @home = @order.home
       @room = @order.room
-      @home.available! if @home.present?
-      @room.available! if @room.present?
-      @order.order_type == "order_new" ? @order.denied! : @order.approved!
+      @order.denied!
+      @order.order_type == "order_new" ? (@home.available! if @home.present? @room.available! if @room.present?) : (@home.rented! if @home.present? @room.rented! if @room.present?)
     end
     @order
   end

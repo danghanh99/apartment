@@ -79,7 +79,7 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find_by(id: params[:id])
     if @order.update_attributes(order_params)
-      flash[:success] = "editted extension Order"
+      flash[:success] = "editted Order"
       redirect_to orders_path
     else
       render "edit"
