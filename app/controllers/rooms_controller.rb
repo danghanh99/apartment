@@ -21,6 +21,7 @@ class RoomsController < ApplicationController
     if admin?
       @room = Room.find(params[:room_id])
       @orders = @room.orders
+      @count_order_rooms = @orders.reorder(:status).group(:status).count
     end
   end
 

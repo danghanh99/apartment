@@ -6,6 +6,13 @@ class OrdersController < ApplicationController
     @orders = Order.search(params, current_user.id) if params.present?
   end
 
+  # def search(params, type, id)
+  #   @object = type == "home" ? Home.find(id) : Room.find(id)
+  #   @results = @object.orders
+  #   @results = @orders.where("status LIKE :search", search: "#{params[:search_order]}") if params[:search_order].present?
+  #   @results
+  # end
+
   def new_extension
     @order_parent = Order.find(params[:order_id])
     if @order_parent.approved?
@@ -27,13 +34,18 @@ class OrdersController < ApplicationController
     @order = @current_object.orders.build(create_extension_params) if @current_object.present?
     @order.user_id = @order_parent.user_id
     @order.checkin_time = @order_parent.checkin_time
-    @order.order_extion!
     @order.relation = @order_parent.id
-    if @order.save
-      flash[:success] = "Order created!"
-      redirect_to orders_path
+    if @order.rental_period != nil
+      @order.order_extion!
+      if @order.save
+        flash[:success] = "Order created!"
+        redirect_to orders_path
+      else
+        render "new_extension"
+      end
     else
-      render "new_extension"
+      flash[:danger] = "Please, input rental period"
+      redirect_to order_new_extension_path(params[:order_id])
     end
   end
 

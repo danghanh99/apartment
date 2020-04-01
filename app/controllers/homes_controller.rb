@@ -14,6 +14,7 @@ class HomesController < ApplicationController
     if admin?
       @home = Home.find(params[:home_id])
       @orders = @home.orders
+      @count_order_homess = @orders.reorder(:status).group(:status).count
     end
   end
 
