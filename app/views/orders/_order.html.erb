@@ -21,7 +21,7 @@
 <span class="status"> <label>Status:</label>
   <%= order.status %></span></br>
 <span class="status"> <label>Type:</label>
-  <%= order.order_type %></span></br>
+  <%= order_type(order.order_type) %></span></br>
 <span class="timestamp"><label>Posted</label>
   <%= time_ago_in_words(order.created_at) %> ago.
 </span>

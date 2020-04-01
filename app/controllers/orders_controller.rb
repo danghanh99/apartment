@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
     @order = @current_object.orders.build(create_extension_params) if @current_object.present?
     @order.user_id = @order_parent.user_id
     @order.checkin_time = @order_parent.checkin_time
-    @order.extion!
+    @order.order_extion!
     @order.relation = @order_parent.id
     if @order.save
       flash[:success] = "Order created!"
@@ -49,8 +49,8 @@ class OrdersController < ApplicationController
     @current_object = @home.present? ? @home : @room
     if @current_object.available? || @current_object.ordered?
       @order = @current_object.orders.build(order_params) if @current_object.present?
-      @order.order_type = "original"
       @order.user_id = current_user.id
+      @order.order_new!
       if @order.save
         @home.ordered! if @home.present?
         @room.ordered! if @room.present?

@@ -1,17 +1,16 @@
 <% if @current_object.present? %>
-  <%#= form_for(@order, url: send("#{@current_object.type_name}_create_extension_path", @current_object)) do |f| %>
-    <%= form_for(@order, url: order_create_extension_path(@order_parent)) do |f| %>
-      <%= render "shared/error_messages", object: f.object %>
-      <div class="field">
-        <%@order_object = @current_object %>
-        <%= render partial: "shared/#{@order_object.type_name}_info", locals: {object: @order_object}%>
-        <label>Rental Period (Month):</label>
-        <%= f.select :rental_period, options_for_select(Order.allowed_rental_duration), {:class => 'form-control', :prompt => 'Rental period'} %>
-        <script type="text/javascript">
-          $(function () {
-              $('#datetimepicker1').datetimepicker();
-          });
-        </script>
-        <%= f.submit "Create extension", class: "btn btn-primary" %>
-      <% end %>
+  <%= form_for(@order, url: order_create_extension_path(@order_parent)) do |f| %>
+    <%= render "shared/error_messages", object: f.object %>
+    <div class="field">
+      <%@order_object = @current_object %>
+      <%= render partial: "shared/#{@order_object.type_name}_info", locals: {object: @order_object}%>
+      <label>Rental Period (Month):</label>
+      <%= f.select :rental_period, options_for_select(Order.allowed_rental_duration), {:class => 'form-control', :prompt => 'Rental period'} %>
+      <script type="text/javascript">
+        $(function () {
+            $('#datetimepicker1').datetimepicker();
+        });
+      </script>
+      <%= f.submit "Create extension", class: "btn btn-primary" %>
     <% end %>
+  <% end %>

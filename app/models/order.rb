@@ -8,9 +8,9 @@ class Order < ApplicationRecord
   validates :checkin_time, presence: true
   validate :checkin_time_cannot_be_in_the_past
   validates :rental_period, presence: true
-  enum order_type: { original: "original", extion: "extion" }
+  enum order_type: { order_new: "order_new", order_extion: "order_extion" }
   validates :order_type, presence: true,
-                         inclusion: { in: %w(original extion) }
+                         inclusion: { in: %w(order_new order_extion) }
   enum status: { requesting: "requesting", editted: "editted", approved: "approved", denied: "denied",
                  cancelled: "cancelled", finished: "finished", requesting_extension: "requesting_extension" }
   validates :status, presence: true,
@@ -61,8 +61,8 @@ class Order < ApplicationRecord
       @home = @order.home
       @room = @order.room
       @home.available! if @home.present?
-      @room.rented! if @room.present?
-      @order.denied!
+      @room.available! if @room.present?
+      @order.order_type == "order_new" ? @order.denied! : @order.approved!
     end
     @order
   end

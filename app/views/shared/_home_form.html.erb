@@ -4,7 +4,7 @@
     <label>Name:</label> <%= f.text_field :name, placeholder: "name home..." %>
     <label>Address:</label> <%= f.text_field :address, placeholder: "address home..." %>
     <label>Status:</label><%= f.select :status, Home.statuses.to_a, :prompt => "status" %>
-    <label>Number Floors:</label> <%= f.text_field :number_floors, placeholder: "number_floors..." %>
+    <label>Number Floors:</label> <%= f.text_field :number_floors, placeholder: "number floors..." %>
     <label>Full Price:</label> <%= f.text_field :full_price, placeholder: "full price..." %>
     <label>Price Unit</label><%= f.select :price_unit, Home.price_units.to_a, :prompt => "price_unit" %>
   </div>

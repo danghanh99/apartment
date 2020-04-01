@@ -8,7 +8,7 @@
     <label>Height:</label> <%= f.number_field :height, placeholder: "height..." , class: "form-control"%>
     <label>Status:</label><%= f.select :status, Room.statuses.to_a, :prompt => "status", class: "form-control" %>
     <label>Price:</label> <%= f.number_field :price, placeholder: "price...", class: "form-control" %>
-    <label>Price Unit</label><%= f.select :price_unit, Room.price_units.to_a, :prompt => "price_unit", class: "form-control" %>
+    <label>Price Unit</label><%= f.select :price_unit, Room.price_units.to_a, :prompt => "price unit", class: "form-control" %>
   </div>
   <%= f.submit btn, class: "btn btn-primary" %>
 <% end %>

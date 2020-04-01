@@ -24,4 +24,8 @@ module ApplicationHelper
      ["Cancelled", "cancelled"],
      ["Finished", "finished"]]
   end
+
+  def order_type(type)
+    type == "order_new" ? "order new" : "order extion"
+  end
 end
