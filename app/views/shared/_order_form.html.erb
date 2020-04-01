@@ -1,22 +1,25 @@
-<%= form_for([order_object, @order || order_object.orders.build]) do |f| %>
-  <%= render "shared/error_messages", object: f.object %>
-  <div class="field">
-    <%= render order_object%></p>
-  <label>Rental Period (Month):</label>
-  <%= f.select :rental_period, options_for_select(Order.allowed_rental_duration), {:class => 'form-control', :prompt => 'rental_period'} %>
-  <label>CheckIn Time:</label></br>
-<div class="form-group">
-  <div class='input-group date' id='datetimepicker1'>
-    <%= f.text_field :checkin_time, placeholder: "Input your checkin time...", class: "form-control"  %>
-    <span class="input-group-addon">
-      <span class="glyphicon glyphicon-calendar"></span>
-    </span>
-  </div>
-</div>
-<script type="text/javascript">
-  $(function () {
-      $('#datetimepicker1').datetimepicker();
-  });
-</script>
-<%= f.submit btn, class: "btn btn-primary" %>
+<% if order_object.present? %>
+  <%= form_for([order_object, @order || order_object.orders.build]) do |f| %>
+    <%= render "shared/error_messages", object: f.object %>
+    <div class="field">
+      <%@order_object = order_object %>
+      <%= render partial: "shared/#{order_object.type_name}_info", locals: {object: @order_object}%>
+      <label>Rental Period (Month):</label>
+      <%= f.select :rental_period, options_for_select(Order.allowed_rental_duration), {:class => 'form-control', :prompt => 'Rental period'} %>
+      <label>CheckIn Time:</label></br>
+    <div class="form-group">
+      <div class='input-group date' id='datetimepicker1'>
+        <%= f.text_field :checkin_time, placeholder: "Input your checkin time...", class: "form-control"  %>
+        <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+        </span>
+      </div>
+    </div>
+    <script type="text/javascript">
+      $(function () {
+          $('#datetimepicker1').datetimepicker();
+      });
+    </script>
+    <%= f.submit btn, class: "btn btn-primary" %>
+  <% end %>
 <% end %>

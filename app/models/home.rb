@@ -17,6 +17,10 @@ class Home < ApplicationRecord
   validates :price_unit, presence: true, inclusion: { in: %w(VND USD) }
   validates :address, presence: true, length: { minimum: 5, maximum: 250 }
 
+  def type_name
+    "home"
+  end
+
   private
 
   # Validates the size of an uploaded picture.

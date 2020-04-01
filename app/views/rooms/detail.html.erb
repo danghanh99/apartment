@@ -1,0 +1,6 @@
+<% @order_object = @room%>
+<%= render partial: "shared/#{@order_object.type_name}_info", locals: {object: @order_object}%>
+<% @orders.each do |f| %>
+  <%@order = f %>
+  <%= render partial: "orders/order_info", locals: {object: @order}%>
+<% end %>

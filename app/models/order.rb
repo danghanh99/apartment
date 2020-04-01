@@ -8,11 +8,15 @@ class Order < ApplicationRecord
   validates :checkin_time, presence: true
   validate :checkin_time_cannot_be_in_the_past
   validates :rental_period, presence: true
-  enum status: { requesting: "requesting", approved: "approved", denied: "denied",
+  enum order_type: { original: "original", extion: "extion" }
+  validates :order_type, presence: true,
+                         inclusion: { in: %w(original extion) }
+  enum status: { requesting: "requesting", editted: "editted", approved: "approved", denied: "denied",
                  cancelled: "cancelled", finished: "finished", requesting_extension: "requesting_extension" }
   validates :status, presence: true,
                      inclusion: { in: %w(requesting approved denied cancelled finished requesting_extension) }
   validate :home_id_or_room_id_have_to_present
+
   def self.allowed_rental_duration
     [1, 3, 6, 12]
   end

@@ -6,6 +6,37 @@ class OrdersController < ApplicationController
     @orders = Order.search(params, current_user.id) if params.present?
   end
 
+  def new_extension
+    @order_parent = Order.find(params[:order_id])
+    if @order_parent.approved?
+      @home = Home.find(@order_parent.home_id) if @order_parent.home_id.present?
+      @room = Room.find(@order_parent.room_id) if @order_parent.room_id.present?
+      @current_object = @home.present? ? @home : @room
+      @order = Order.new
+    else
+      flash[:danger] = "Order failed!"
+      redirect_to orders_path
+    end
+  end
+
+  def create_extension
+    @order_parent = Order.find(params[:order_id])
+    @home = Home.find(@order_parent.home_id) if @order_parent.home_id.present?
+    @room = Room.find(@order_parent.room_id) if @order_parent.room_id.present?
+    @current_object = @home.present? ? @home : @room
+    @order = @current_object.orders.build(create_extension_params) if @current_object.present?
+    @order.user_id = @order_parent.user_id
+    @order.checkin_time = @order_parent.checkin_time
+    @order.extion!
+    @order.relation = @order_parent.id
+    if @order.save
+      flash[:success] = "Order created!"
+      redirect_to orders_path
+    else
+      render "new_extension"
+    end
+  end
+
   def new
     @home = Home.find(params[:home_id]) if params[:home_id].present?
     @room = Room.find(params[:room_id]) if params[:room_id].present?
@@ -14,31 +45,33 @@ class OrdersController < ApplicationController
 
   def create
     @home = Home.find(params[:home_id]) if params[:home_id].present?
-    @order = @home.orders.build(order_params) if @home.present?
-
     @room = Room.find(params[:room_id]) if params[:room_id].present?
-    @order = @room.orders.build(order_params) if @room.present?
-    @order.user_id = current_user.id
-    if @order.save
-      @home.ordered! if @home.present?
-      @room.ordered! if @room.present?
-      flash[:success] = "Order created!"
-      redirect_to orders_path
+    @current_object = @home.present? ? @home : @room
+    if @current_object.available? || @current_object.ordered?
+      @order = @current_object.orders.build(order_params) if @current_object.present?
+      @order.order_type = "original"
+      @order.user_id = current_user.id
+      if @order.save
+        @home.ordered! if @home.present?
+        @room.ordered! if @room.present?
+        flash[:success] = "Order created!"
+        redirect_to orders_path
+      else
+        render "new"
+      end
     else
-      render "new"
+      flash[:danger] = "Order failed!  #{@current_object.type_name} rented"
+      redirect_to orders_path
     end
   end
 
-  def destroy
-    @home = Home.find(params[:home_id])
-    @order = @home.orders.find(params[:id])
-    if @order.status == "requesting" || @order.status == "denied" || @order.status == "finished"
-      @order.destroy
-      @home.available!
-      flash[:success] = "Order deleted"
-      redirect_to orders_path
-    else
-      flash[:danger] = "Request denied , please contact to landlord"
+  def edit
+    @order = Order.find_by(id: params[:id])
+    @home = @order.home if @order.home_id.present?
+    @room = @order.room if @order.room_id.present?
+    @args = @home.present? ? @home : @room
+    unless @order.requesting? || @order.requesting_extension?
+      flash[:danger] = "Request deny , please contact to landlord"
       redirect_to orders_path
     end
   end
@@ -46,21 +79,10 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find_by(id: params[:id])
     if @order.update_attributes(order_params)
-      @order.requesting_extension!
-      flash[:success] = "requesting extension Order"
+      flash[:success] = "editted extension Order"
       redirect_to orders_path
     else
-      render "requesting_extension"
-    end
-  end
-
-  def requesting_extension
-    @order = Order.find_by(id: params[:order_id])
-    @home = @order.home if @order.home_id.present?
-    @room = @order.room if @order.room_id.present?
-    unless @order.approved?
-      flash[:danger] = "Request deny , please contact to landlord"
-      redirect_to orders_path
+      render "edit"
     end
   end
 
@@ -99,5 +121,9 @@ class OrdersController < ApplicationController
   def order_params
     params[:order][:checkin_time] = DateTime.strptime(params[:order][:checkin_time], "%m/%d/%Y %l:%M %p")
     params.require(:order).permit(:checkin_time, :rental_period)
+  end
+
+  def create_extension_params
+    params.require(:order).permit(:rental_period)
   end
 end

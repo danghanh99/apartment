@@ -1,4 +1,4 @@
 <aside class="col-md-6 col-md-offset-3">
   <h1>Rent Apartment</h1>
-  <%= render partial: "shared/order_form", locals: {btn: "Order"} %>
+  <%= render partial: "shared/order_form", locals: {order_object: @home || @room, btn: "Order"} %>
 </aside>

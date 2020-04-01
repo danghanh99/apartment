@@ -3,15 +3,7 @@ module ApplicationHelper
   # Returns the full title on a per-page basis.
   def full_title(page_title = "")
     base_title = "Apartment"
-    if page_title.empty?
-      base_title
-    else
-      "#{page_title} | #{base_title}"
-    end
-  end
-
-  def order_object
-    @home.present? ? @home : @room
+    page_title.empty? ? base_title : "#{page_title} | #{base_title}"
   end
 
   def count_status

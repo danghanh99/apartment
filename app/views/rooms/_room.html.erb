@@ -7,7 +7,7 @@
 <span class="status"><label>Status:</label> <%= room.status %></span></br>
 <span class="price"><label>Price:</label><%= format_currency(room.price, room.price_unit) %></span><br>
 <span class="timestamp">
-  <% if logged_in? %>
+  <%unless room.rented?%>
     <span class="order"><%= link_to "Order", new_room_order_path(room) , class: "btn btn-primary"%>
       <% if admin? %>
         <span class="edit">
@@ -18,4 +18,5 @@
       <% end %>
     <% end %>
   </span>
+  <% if admin? %><%= link_to "Order detail", room_detail_path(room) , class: "btn btn-primary"%><% end %>
 </li>

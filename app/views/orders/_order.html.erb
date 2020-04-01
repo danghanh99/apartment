@@ -20,16 +20,26 @@
   <%= order.rental_period %> month</span></br>
 <span class="status"> <label>Status:</label>
   <%= order.status %></span></br>
+<span class="status"> <label>Type:</label>
+  <%= order.order_type %></span></br>
 <span class="timestamp"><label>Posted</label>
   <%= time_ago_in_words(order.created_at) %> ago.
 </span>
 </li>
 <span class="delete">
-  <%= link_to 'Cancel', order_cancel_path(order), method: :patch, data: {confirm: "Are you sure"} , class: "btn btn-primary"%>
-  <%= link_to 'Requesting Extension',order_requesting_extension_path(order), method: :get, class: "btn btn-primary" %>
+  <%if order.requesting? && admin? == false %><%= link_to 'Cancel', order_cancel_path(order), method: :patch, data: {confirm: "Are you sure"} , class: "btn btn-primary"%>
+  <%end%>
+  <%if order.approved? && admin? == false %>
+    <%= link_to 'Requesting extension ', order_new_extension_path(order), method: :get, class: "btn btn-primary"%>
+  <%end%>
+  <%if order.requesting? || order.requesting_extension? %><%= link_to 'Edit', edit_order_path(order), method: :get , class: "btn btn-primary"%>
+  <%end%>
   <%if admin? %>
-    <%= link_to 'Deny',order_deny_url(order), method: :patch , class: "btn btn-primary"%>
-    <%= link_to 'Approve',order_approve_url(order), method: :patch, class: "btn btn-primary" %></br></p>
-<%= link_to 'Finish',order_finish_url(order), method: :patch , class: "btn btn-primary"%>
+    <%if order.requesting? || order.requesting_extension?%>
+      <%= link_to 'Deny',order_deny_url(order), method: :patch , class: "btn btn-primary"%>
+      <%= link_to 'Approve',order_approve_url(order), method: :patch, class: "btn btn-primary" %></br></p>
+<%end%>
+<%if order.finished? == false  && order.approved?%> <%= link_to 'Finish',order_finish_url(order), method: :patch , class: "btn btn-primary"%>
+<%end%>
 <%end%>
 </span>

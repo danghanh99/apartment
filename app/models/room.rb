@@ -14,4 +14,8 @@ class Room < ApplicationRecord
   validates :area, presence: true
   enum status: { available: "available", ordered: "ordered", rented: "rented" }
   validates :status, presence: true, inclusion: { in: %w(available ordered rented) }
+
+  def type_name
+    "room"
+  end
 end

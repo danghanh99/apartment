@@ -10,6 +10,13 @@ class HomesController < ApplicationController
     @home = Home.find(params[:id])
   end
 
+  def detail
+    if admin?
+      @home = Home.find(params[:home_id])
+      @orders = @home.orders
+    end
+  end
+
   def create
     @home = current_user.homes.build(home_params)
     if @home.save

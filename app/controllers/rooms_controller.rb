@@ -17,6 +17,13 @@ class RoomsController < ApplicationController
     end
   end
 
+  def detail
+    if admin?
+      @room = Room.find(params[:room_id])
+      @orders = @room.orders
+    end
+  end
+
   def destroy
     @home = Home.find(params[:home_id])
     @room = @home.rooms.destroy(params[:id])
