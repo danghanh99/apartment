@@ -85,4 +85,12 @@ class Order < ApplicationRecord
     results = @orders.where("status LIKE :search", search: "#{params[:search_order]}") if params[:search_order].present?
     results
   end
+
+  def self.check_order_extension(id)
+    Order.select { |order| order.relation == "#{id}" && (order.approved? || order.requesting?) }.blank?
+  end
+
+  def self.find_order_extension(id)
+    Order.select { |order| order.relation == "#{id}" }
+  end
 end

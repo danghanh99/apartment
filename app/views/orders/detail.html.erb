@@ -1,0 +1,24 @@
+<div class="row">
+  <aside class="col-md-4">
+    <h3>Old Order</h3>
+    <section class="user_info">
+      <%= render @order%>
+    </section>
+  </aside>
+  <div class="col-md-6">
+    <% if Order.find_order_extension(@order.id).any? %>
+      <h3>Order entensions (<%= Order.find_order_extension(@order.id).count %>)</h3>
+      <ol class="homes">
+        <% Order.find_order_extension(@order.id).each do |order| %>
+          <%if order.approved? || order.requesting?%>
+            <div class=order_background>
+              <%= render order%>
+            </div>
+          <% else %>
+            <%= render order%>
+          <%end%>
+        <%end %>
+      </ol>
+    <% end %>
+  </div>
+</div>

@@ -14,8 +14,10 @@
 <%end%>
 <span class="phone_number"><label>Phone number:</label>
   <%= @user.phone_number %></span></br>
-<span class="checkin_time"><label>Checkin Time:</label>
+<span class="checkin_time"><label>Checkin time:</label>
   <%= order.checkin_time %></span></br>
+<span class="checkin_time"><label>Return time: </label>
+  <%= order.return_time %></span></br>
 <span class="rental_period"><label>Rental Period:</label>
   <%= order.rental_period %> month</span></br>
 <span class="status"> <label>Status:</label>
@@ -29,8 +31,12 @@
 <span class="delete">
   <%if order.requesting? && admin? == false %><%= link_to 'Cancel', order_cancel_path(order), method: :patch, data: {confirm: "Are you sure"} , class: "btn btn-primary"%>
   <%end%>
-  <%if order.approved? && admin? == false %>
-    <%= link_to 'Requesting extension ', order_new_extension_path(order), method: :get, class: "btn btn-primary"%>
+  <%if order.approved? && admin? == false && order.order_new? %>
+    <%if Order.check_order_extension(order.id)%>
+      <%= link_to 'Requesting extension ', order_new_extension_path(order), method: :get, class: "btn btn-primary"%>
+    <%else%>
+      <div class = cannot_entend> <label><%= "You cannot extend, view in Order detail"%></label></div>
+    <%end%>
   <%end%>
   <%if order.requesting? || order.requesting_extension? %><%= link_to 'Edit', edit_order_path(order), method: :get , class: "btn btn-primary"%>
   <%end%>
@@ -42,4 +48,5 @@
 <%if order.finished? == false  && order.approved?%> <%= link_to 'Finish',order_finish_url(order), method: :patch , class: "btn btn-primary"%>
 <%end%>
 <%end%>
+<%= link_to 'Order detail',order_detail_path(order), method: :get , class: "btn btn-primary"%>
 </span>

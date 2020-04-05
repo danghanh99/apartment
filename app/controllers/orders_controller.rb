@@ -6,20 +6,22 @@ class OrdersController < ApplicationController
     @orders = Order.search(params, current_user.id) if params.present?
   end
 
-  # def search(params, type, id)
-  #   @object = type == "home" ? Home.find(id) : Room.find(id)
-  #   @results = @object.orders
-  #   @results = @orders.where("status LIKE :search", search: "#{params[:search_order]}") if params[:search_order].present?
-  #   @results
-  # end
+  def detail
+    @order = Order.find(params[:order_id])
+  end
 
   def new_extension
     @order_parent = Order.find(params[:order_id])
-    if @order_parent.approved?
-      @home = Home.find(@order_parent.home_id) if @order_parent.home_id.present?
-      @room = Room.find(@order_parent.room_id) if @order_parent.room_id.present?
-      @current_object = @home.present? ? @home : @room
-      @order = Order.new
+    if @order_parent.order_new? && Order.find_order_extension(@order_parent.id)
+      if @order_parent.approved?
+        @home = Home.find(@order_parent.home_id) if @order_parent.home_id.present?
+        @room = Room.find(@order_parent.room_id) if @order_parent.room_id.present?
+        @current_object = @home.present? ? @home : @room
+        @order = Order.new
+      else
+        flash[:danger] = "Order failed!"
+        redirect_to orders_path
+      end
     else
       flash[:danger] = "Order failed!"
       redirect_to orders_path
@@ -33,7 +35,8 @@ class OrdersController < ApplicationController
     @current_object = @home.present? ? @home : @room
     @order = @current_object.orders.build(create_extension_params) if @current_object.present?
     @order.user_id = @order_parent.user_id
-    @order.checkin_time = @order_parent.checkin_time
+    @order.checkin_time = @order_parent.return_time + 1.days
+    @order.return_time = @order.checkin_time + @order.rental_period.months
     @order.relation = @order_parent.id
     if @order.rental_period != nil
       @order.order_extion!
@@ -62,6 +65,7 @@ class OrdersController < ApplicationController
     if @current_object.available? || @current_object.ordered?
       @order = @current_object.orders.build(order_params) if @current_object.present?
       @order.user_id = current_user.id
+      @order.return_time = @order.checkin_time + @order.rental_period.months
       @order.order_new!
       if @order.save
         @home.ordered! if @home.present?

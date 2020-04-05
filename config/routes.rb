@@ -17,6 +17,7 @@ Rails.application.routes.draw do
     patch "/edit", to: "orders#edit"
     patch "/finish", to: "orders#finish"
     get "/new_extension", to: "orders#new_extension"
+    get "/detail", to: "orders#detail"
   end
   resources :users do
     get "/profile", to: "users#profile"
