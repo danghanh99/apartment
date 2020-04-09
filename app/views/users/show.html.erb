@@ -6,17 +6,25 @@
         <%= @user.name %>
       </h1>
     </section>
-  <% if admin? %>
-    <section class="home_form">
-      <%= render partial: "shared/home_form", locals: { btn: "Post" } %>
-    </section>
-  <% end %>
+    <% if admin? %>
+      <section class="home_form">
+        <%= render partial: "shared/home_form", locals: { btn: "Post" } %>
+      </section>
+    <% end %>
   </aside>
   <div class="col-md-8">
     <% if @user.homes.any? %>
       <h3>Homes (<%= @user.homes.count %>)</h3>
       <ol class="homes">
         <%= render @homes %>
+      </ol>
+    <% end %>
+  </div>
+  <div class="col-md-8">
+    <% if @user.orders.any? %>
+      <h3>Orders (<%= @user.orders.count %>)</h3>
+      <ol class="homes">
+        <%= render @user.orders %>
       </ol>
     <% end %>
   </div>

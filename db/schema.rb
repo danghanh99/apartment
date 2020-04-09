@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200313140432) do
+ActiveRecord::Schema.define(version: 20200404135122) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,8 +25,47 @@ ActiveRecord::Schema.define(version: 20200313140432) do
     t.datetime "updated_at", null: false
     t.string "picture"
     t.string "price_unit", default: "VND"
+    t.text "address"
     t.index ["user_id", "created_at"], name: "index_homes_on_user_id_and_created_at"
     t.index ["user_id"], name: "index_homes_on_user_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "home_id"
+    t.datetime "checkin_time"
+    t.integer "rental_period"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "status", default: "requesting"
+    t.bigint "room_id"
+    t.string "order_type"
+    t.string "relation"
+    t.datetime "return_time"
+    t.index ["home_id"], name: "index_orders_on_home_id"
+    t.index ["room_id"], name: "index_orders_on_room_id"
+    t.index ["user_id", "created_at"], name: "index_orders_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.bigint "order_id"
+    t.bigint "user_id"
+    t.bigint "home_id"
+    t.integer "length"
+    t.integer "width"
+    t.integer "height"
+    t.integer "number_room"
+    t.integer "price"
+    t.string "price_unit"
+    t.string "status", default: "available "
+    t.integer "area"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["home_id"], name: "index_rooms_on_home_id"
+    t.index ["order_id"], name: "index_rooms_on_order_id"
+    t.index ["user_id", "created_at"], name: "index_rooms_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_rooms_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -42,8 +81,15 @@ ActiveRecord::Schema.define(version: 20200313140432) do
     t.boolean "admin", default: false
     t.string "reset_digest"
     t.datetime "reset_sent_at"
+    t.string "phone_number"
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "homes", "users"
+  add_foreign_key "orders", "homes"
+  add_foreign_key "orders", "rooms"
+  add_foreign_key "orders", "users"
+  add_foreign_key "rooms", "homes"
+  add_foreign_key "rooms", "orders"
+  add_foreign_key "rooms", "users"
 end

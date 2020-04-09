@@ -1,0 +1,52 @@
+<li id="order-<%= order.id %>">
+  <% @user = User.find_by id: order.user_id %>
+  <% @home = Home.find_by id: order.home_id %>
+  <% @room = Room.find_by id: order.room_id %>
+  <span class="name_guest"> <label>Name:</label>
+    <%= @user.name %></span></br>
+<%if @home.present?%>
+  <span class="address"><label>Address:</label>
+    <%= @home.address %></span></br>
+<%end%>
+<%if @room.present?%>
+  <span class="address"><label>Number Room:</label>
+    <%= @room.number_room %></span></br>
+<%end%>
+<span class="phone_number"><label>Phone number:</label>
+  <%= @user.phone_number %></span></br>
+<span class="checkin_time"><label>Checkin time:</label>
+  <%= order.checkin_time %></span></br>
+<span class="checkin_time"><label>Return time: </label>
+  <%= order.return_time %></span></br>
+<span class="rental_period"><label>Rental Period:</label>
+  <%= order.rental_period %> month</span></br>
+<span class="status"> <label>Status:</label>
+  <%= order.status %></span></br>
+<span class="status"> <label>Type:</label>
+  <%= order_type(order.order_type) %></span></br>
+<span class="timestamp"><label>Posted</label>
+  <%= time_ago_in_words(order.created_at) %> ago.
+</span>
+</li>
+<span class="delete">
+  <%if order.requesting? && admin? == false %><%= link_to 'Cancel', order_cancel_path(order), method: :patch, data: {confirm: "Are you sure"} , class: "btn btn-primary"%>
+  <%end%>
+  <%if order.approved? && admin? == false && order.order_new? %>
+    <%if Order.check_order_extension(order.id)%>
+      <%= link_to 'Requesting extension ', order_new_extension_path(order), method: :get, class: "btn btn-primary"%>
+    <%else%>
+      <div class = cannot_entend> <label><%= "You cannot extend, view in Order detail"%></label></div>
+    <%end%>
+  <%end%>
+  <%if order.requesting? || order.requesting_extension? %><%= link_to 'Edit', edit_order_path(order), method: :get , class: "btn btn-primary"%>
+  <%end%>
+  <%if admin? %>
+    <%if order.requesting? || order.requesting_extension?%>
+      <%= link_to 'Deny',order_deny_url(order), method: :patch , class: "btn btn-primary"%>
+      <%= link_to 'Approve',order_approve_url(order), method: :patch, class: "btn btn-primary" %></br></p>
+<%end%>
+<%if order.finished? == false  && order.approved?%> <%= link_to 'Finish',order_finish_url(order), method: :patch , class: "btn btn-primary"%>
+<%end%>
+<%end%>
+<%= link_to 'Order detail',order_detail_path(order), method: :get , class: "btn btn-primary"%>
+</span>

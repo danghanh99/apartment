@@ -7,6 +7,10 @@ class UsersController < ApplicationController
     @homes = @user.homes
   end
 
+  def profile
+    @user = User.find_by id: params[:user_id]
+  end
+
   def new
     @user = User.new
   end
@@ -30,7 +34,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update_attributes(user_params)
       flash[:success] = "Profile updated"
-      redirect_to @user
+      redirect_to user_profile_path(@user.id)
     else
       render "edit"
     end
@@ -39,7 +43,6 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :email, :password,
-                                 :password_confirmation)
+    params.require(:user).permit(:name, :email, :phone_number, :password, :password_confirmation)
   end
 end

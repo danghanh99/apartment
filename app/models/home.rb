@@ -1,4 +1,6 @@
 class Home < ApplicationRecord
+  has_many :orders, dependent: :destroy
+  has_many :rooms, dependent: :destroy
   belongs_to :user
   default_scope -> { order(created_at: :desc) }
   mount_uploader :picture, PictureUploader
@@ -13,6 +15,11 @@ class Home < ApplicationRecord
   validate :picture_size
   enum price_unit: { VND: "VND", USD: "USD" }
   validates :price_unit, presence: true, inclusion: { in: %w(VND USD) }
+  validates :address, presence: true, length: { minimum: 5, maximum: 250 }
+
+  def type_name
+    "home"
+  end
 
   private
 
@@ -25,7 +32,8 @@ class Home < ApplicationRecord
 
   def self.search(params)
     results = Home.all
-    results = results.where("lower(name) LIKE :search OR lower(status) LIKE :search", search: "%#{params[:search_home]}%") if params[:search_home].present?
+    results = results.where("lower(name) LIKE :search", search: "%#{params[:search_home]}%") if params[:search_home].present?
+    results = results.where("lower(status) LIKE :search", search: "%#{params[:home_status]}%") if params[:home_status].present?
     results = results.where("number_floors < ?", params[:number_floors]) if params[:number_floors].present?
     results = results.where("full_price > ?", params[:price_begin]) if params[:price_begin].present?
     results = results.where("full_price < ?", params[:price_end]) if params[:price_end].present?

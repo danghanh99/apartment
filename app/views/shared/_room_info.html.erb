@@ -1,0 +1,7 @@
+<span class="number room"><label>Number Room:</label> <%= @order_object.number_room %></span></br>
+<span class="area"><label>Area:</label> <%=@order_object.area %></span></br>
+<span class="Length"><label>Length:</label> <%= @order_object.length %></span></br>
+<span class="width"><label>Width:</label> <%= @order_object.width %></span></br>
+<span class="height"><label>Height:</label> <%= @order_object.height %></span></br>
+<span class="status"><label>Status:</label> <%= @order_object.status %></span></br>
+<span class="price"><label>Price:</label><%= format_currency(@order_object.price, @order_object.price_unit) %></span><br>

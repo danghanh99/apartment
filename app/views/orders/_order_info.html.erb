@@ -1,0 +1,24 @@
+  <% @user = User.find_by id: @order.user_id %>
+<% @home = Home.find_by id: @order.home_id %>
+<% @room = Room.find_by id: @order.room_id %></br>
+<span class="name_guest"> <label>Name:</label>
+  <%= @user.name %></span></br>
+<%if @home.present?%>
+  <span class="address"><label>Address:</label>
+    <%= @home.address %></span></br>
+<%end%>
+<%if @room.present?%>
+  <span class="address"><label>Number Room:</label>
+    <%= @room.number_room %></span></br>
+<%end%>
+<span class="phone_number"><label>Phone number:</label>
+  <%= @user.phone_number %></span></br>
+<span class="checkin_time"><label>Checkin Time:</label>
+  <%= @order.checkin_time %></span></br>
+<span class="rental_period"><label>Rental Period:</label>
+  <%= @order.rental_period %> month</span></br>
+<span class="status"> <label>Status:</label>
+  <%= @order.status %></span></br>
+<span class="timestamp"><label>Posted</label>
+  <%= time_ago_in_words(@order.created_at) %> ago.
+</span></br></br>

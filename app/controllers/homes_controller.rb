@@ -6,6 +6,18 @@ class HomesController < ApplicationController
     @homes = Home.search(params)
   end
 
+  def show
+    @home = Home.find(params[:id])
+  end
+
+  def detail
+    if admin?
+      @home = Home.find(params[:home_id])
+      @orders = @home.orders
+      @count_order_homess = @orders.reorder(:status).group(:status).count
+    end
+  end
+
   def create
     @home = current_user.homes.build(home_params)
     if @home.save
@@ -41,7 +53,7 @@ class HomesController < ApplicationController
   private
 
   def home_params
-    params.require(:home).permit(:name, :status, :number_floors, :full_price, :picture, :price_unit)
+    params.require(:home).permit(:name, :status, :address, :number_floors, :full_price, :picture, :price_unit)
   end
 
   def correct_user

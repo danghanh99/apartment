@@ -1,0 +1,14 @@
+<div class="center jumbotron">
+  <h1>Apartment's order</h1>
+</div>
+<%= render partial: "search_order" %>
+<div class="row">
+  <div class="col-md-4">
+    <% count_status.each do |status, number| %>
+      <p></label>Status: <label> <%= number %> <%= status %> </p>
+    <% end %>
+  </div>
+  <div class="col-md-8">
+    <%= render @orders %></br>
+</div>
+</div>

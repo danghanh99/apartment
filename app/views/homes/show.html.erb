@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-md-8">
+    <span class="name"><label>Name:</label> <%= @home.name %></span></br>
+  <span class="address"><label>Address:</label> <%= @home.address %></span></br>
+<span class="status"><label>Status:</label> <%= @home.status %></span></br>
+<span class="number_floors"><label>Number Floors:</label> <%= @home.number_floors %></span></br>
+<span class="full_price"><label>Full Price:</label><%= format_currency(@home.full_price, @home.price_unit) %></span><br>
+<span class="posted"><%= image_tag @home.picture.url if @home.picture? %></span></br>
+<span class="timestamp">
+  <label>Posted</label> <%= time_ago_in_words(@home.created_at) %> ago.
+</br></br>
+Number room: <%= @home.rooms.count%>
+<%= render @home.rooms %></p>
+</div>
+<%if admin?%>
+  <div class="col-md-4">
+    <%= render partial: "shared/room_form", locals: { btn: "Post" } %>
+  </div>
+<%end%>
+</div>

@@ -1,21 +1,22 @@
 <li id="home-<%= home.id %>">
   <span class="name"><label>Name:</label> <%= home.name %></span></br>
-  <span class="status"><label>Status:</label> <%= home.status %></span></br>
-  <span class="number_floors"><label>Number Floors:</label> <%= home.number_floors %></span></br>
-  <% if home.price_unit == "VND" %>
-    <span class="full_price"><label>Full Price:</label> <%= home.full_price %> VND</span></br>
-  <% else %>
-    <span class="full_price"><label>Full Price:</label> $<%= home.full_price %></span></br>
-  <% end %>
-  <span class="posted"><%= image_tag home.picture.url if home.picture? %></span></br>
-  
-  <span class="timestamp">
-    <label>Posted</label> <%= time_ago_in_words(home.created_at) %> ago.
-    <% if logged_in? && admin? %>
-      <span class="edit"><%= link_to "edit", edit_home_url(home.id) %>
-        <%= link_to "delete", home, method: :delete,
-                                    data: { confirm: "You sure?" } %>
-      </span>
-    <% end %>
+<span class="address"><label>Address:</label> <%= home.address %></span></br>
+<span class="status"><label>Status:</label> <%= home.status %></span></br>
+<span class="number_floors"><label>Number Floors:</label> <%= home.number_floors %></span></br>
+<span class="full_price"><label>Full Price:</label><%= format_currency(home.full_price, home.price_unit) %></span><br>
+<span class="posted"><%= image_tag home.picture.url if home.picture? %></span></br>
+<span class="timestamp">
+  <label>Posted</label> <%= time_ago_in_words(home.created_at) %> ago.</br>
+<%unless home.rented?%>
+  <span class="order"><%= link_to "Order", new_home_order_url(home) , class: "btn btn-primary"%></span>
+  <span class="detail"><%= link_to "Detail", home_url(home) , class: "btn btn-primary"%></span></br></br>
+<% if admin? %>
+  <span class="edit">
+    <%= link_to "Edit", edit_home_url(home.id) , class: "btn btn-primary"%>
+    <%= link_to "Delete", home, method: :delete,
+                                    data: { confirm: "You sure?" } , class: "btn btn-primary"%>
   </span>
+<% end %>
+<% end %>
+<% if admin? %><%= link_to "Apartment detail", home_detail_path(home) , class: "btn btn-primary"%><% end %>
 </li>
